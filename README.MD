@@ -1,3 +1,5 @@
+# Laravel API
+
 Add the service provider to your `$providers` array in `config/app.php` file like:
 
 ```bash
