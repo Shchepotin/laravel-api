@@ -1,6 +1,6 @@
 {
     "name": "schepotin/laravel-api",
-    "description": "Vue template for laravel",
+    "description": "Laravel API",
     "type": "library",
     "license": "MIT",
     "authors": [
