@@ -1,0 +1,23 @@
+{
+    "name": "schepotin/laravel-api",
+    "description": "Vue template for laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vladislav Schepotin",
+            "email": "vl.schepotin@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "illuminate/support": "~5",
+        "illuminate/console": "~5",
+        "nikic/php-parser": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Schepotin\\LaravelApi\\": "src/"
+        }
+    }
+}

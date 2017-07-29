@@ -1,0 +1,4 @@
+
+
+Route::post("/login", "Api\V1\UserController@login");
+Route::middleware("auth:api")->post("/current/user", "Api\V1\UserController@getCurrentUser");

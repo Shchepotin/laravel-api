@@ -1,0 +1,38 @@
+<?php
+
+namespace {{namespace}}Http\Controllers\Api\V1;
+
+use Auth;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class UserController extends Controller
+{
+    public function login (Request $request)
+    {
+        $data = [
+            'status' => 0,
+        ];
+
+        /*
+         * Auth::once method to log a user into the application for a single request.
+         * No sessions or cookies will be utilized.
+         */
+        if (Auth::once(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+            $data = [
+                'status' => 1,
+                'token' => Auth::user()->api_token,
+            ];
+        }
+
+        return response()->json($data);
+    }
+
+    public function getCurrentUser()
+    {
+        return response()->json([
+            "status" => 1,
+            "data" => Auth::user(),
+        ]);
+    }
+}
