@@ -2,13 +2,21 @@
 
 ## Install
 
+Run artisan command for laravel basic authorization:
+
+```bash
+php artisan make:auth
+```
+
+Install package:
+
 ```bash
 composer require schepotin/laravel-api
 ```
 
 Add the service provider to your `$providers` array in `config/app.php` file like:
 
-```bash
+```php
 Schepotin\LaravelApi\LaravelApiServiceProvider::class
 ```
 
@@ -16,6 +24,12 @@ Run command:
 
 ```bash
 php artisan laravel-api:publish
+```
+
+Run migrations:
+
+```bash
+php artisan migrate
 ```
 
 ## API
