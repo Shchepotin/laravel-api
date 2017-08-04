@@ -70,7 +70,7 @@ class RunCommand extends Command
                             if ($is_update == true) {
                                 $stmt->props[0]
                                     ->default
-                                    ->items[] = new  \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Scalar\String_("api_token"));
+                                    ->items[] = new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Scalar\String_("api_token"));
                             }
                         }
                     }
@@ -143,7 +143,7 @@ class RunCommand extends Command
 
         file_put_contents(
             base_path("routes/api.php"),
-            file_get_contents(__DIR__."/stubs/routes/api.stub"),
+            file_get_contents(__DIR__ . "/stubs/routes/api.stub"),
             FILE_APPEND
         );
 
