@@ -103,6 +103,8 @@ response:
 }
 ```
 
+request:
+
 ```javascript
 fetch('/api/reset/password', {
   method: 'POST',
