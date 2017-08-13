@@ -1,0 +1,26 @@
+<template>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default" v-if="logged">
+                    <div class="panel-body">
+                        {{ name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        computed: {
+            logged () {
+                return this.$store.getters.logged;
+            },
+            name () {
+                return this.$store.getters.name;
+            },
+        },
+    }
+</script>

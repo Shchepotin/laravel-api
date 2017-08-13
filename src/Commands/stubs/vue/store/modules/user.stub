@@ -1,0 +1,180 @@
+import user from '../../api/user';
+import * as types from '../mutation-types';
+
+const state = {
+    id: 0,
+    name: '',
+    email: '',
+    password: '',
+    passwordConfirmation: '',
+    logged: false,
+    token: '',
+    createdAt: '',
+    updatedAt: '',
+};
+
+const getters = {
+    id: state => state.id,
+    name: state => state.name,
+    email: state => state.email,
+    logged: state => state.logged,
+    token: state => state.token,
+    password: state => state.password,
+    passwordConfirmation: state => state.passwordConfirmation,
+    createdAt: state => state.createdAt,
+    updatedAt: state => state.updatedAt,
+};
+
+const actions = {
+    login ({dispatch, commit}, data) {
+        user.login(data.data, json => {
+            if (json.status === 1) {
+                commit(types.LOGIN, {
+                    token: json.token,
+                });
+
+                if (data !== undefined && data.success !== undefined) {
+                    dispatch('getCurrentUser', {
+                        success: data.success,
+                    });
+                } else {
+                    dispatch('getCurrentUser');
+                }
+            } else if (json.status === 0) {
+                if (data !== undefined && data.error !== undefined) {
+                    data.error();
+                }
+            }
+        });
+    },
+    logout ({commit}, data) {
+        commit(types.ID, 0);
+        commit(types.NAME, '');
+        commit(types.EMAIL, '');
+        commit(types.CREATED_AT, '');
+        commit(types.UPDATED_AT, '');
+        commit(types.LOGOUT);
+
+        if (data !== undefined && data.success !== undefined) {
+            data.success();
+        }
+    },
+    register ({dispatch, commit}, data) {
+        user.register(data.data, json => {
+            if (json.status === 1) {
+                commit(types.LOGIN, {
+                    token: json.token,
+                });
+
+                if (data !== undefined && data.success !== undefined) {
+                    dispatch('getCurrentUser', {
+                        success: data.success,
+                    });
+                } else {
+                    dispatch('getCurrentUser');
+                }
+            } else if (json.status === 0) {
+                if (data !== undefined && data.error !== undefined) {
+                    data.error();
+                }
+            }
+        });
+    },
+    passwordEmail ({}, data) {
+        user.passwordEmail(data.data, json => {
+            if (json.status === 1) {
+                if (data !== undefined && data.success !== undefined) {
+                    data.success();
+                }
+            } else if (json.status === 0) {
+                if (data !== undefined && data.error !== undefined) {
+                    data.error();
+                }
+            }
+        });
+    },
+    resetPassword ({}, data) {
+        user.resetPassword(data.data, json => {
+            if (json.status === 1) {
+                if (data !== undefined && data.success !== undefined) {
+                    data.success();
+                }
+            } else if (json.status === 0) {
+                if (data !== undefined && data.error !== undefined) {
+                    data.error();
+                }
+            }
+        });
+    },
+    getCurrentUser ({commit}, data) {
+        user.getCurrentUser(json => {
+            if (json.status === 1) {
+                commit(types.ID, json.data.id);
+                commit(types.NAME, json.data.name);
+                commit(types.EMAIL, json.data.email);
+                commit(types.CREATED_AT, json.data.created_at);
+                commit(types.UPDATED_AT, json.data.updated_at);
+
+                if (data !== undefined && data.success !== undefined) {
+                    data.success();
+                }
+            }
+        });
+    },
+    checkLogged ({dispatch, commit}) {
+        let token = window.localStorage.getItem('token');
+
+        if (token !== null) {
+            commit(types.LOGIN, {
+                token,
+            });
+
+            dispatch('getCurrentUser');
+        }
+    }
+};
+
+const mutations = {
+    [types.LOGIN] (state, payload) {
+        window.localStorage.setItem('token', payload.token);
+        window.axios.defaults.headers.common['Authorization'] = `Bearer ${payload.token}`;
+
+        state.token = payload.token;
+        state.logged = true;
+    },
+    [types.LOGOUT] (state) {
+        window.localStorage.removeItem('token');
+        window.axios.defaults.headers.common['Authorization'] = '';
+
+        state.token = '';
+        state.logged = false;
+    },
+    [types.ID] (state, payload) {
+        state.id = payload;
+    },
+    [types.NAME] (state, payload) {
+        state.name = payload;
+    },
+    [types.EMAIL] (state, payload) {
+        state.email = payload;
+    },
+    [types.PASSWORD] (state, payload) {
+        state.password = payload;
+    },
+    [types.PASSWORD_CONFIRMATION] (state, payload) {
+        state.passwordConfirmation = payload;
+    },
+    [types.CREATED_AT] (state, payload) {
+        state.createdAt = payload;
+    },
+    [types.UPDATED_AT] (state, payload) {
+        state.updatedAt = payload;
+    },
+};
+
+export default {
+    state,
+    getters,
+    actions,
+    mutations
+};

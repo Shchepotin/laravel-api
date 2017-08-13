@@ -1,0 +1,26 @@
+export default {
+    translation: {
+        en: 'English',
+        he: 'עברית',
+        login: 'התחברות',
+        logout: 'להתנתק',
+        register: 'הירשם',
+        name: 'שם',
+        email: 'דוא"ל',
+        password: 'סיסמה',
+        confirmPassword: 'אשר סיסמה',
+        sendPasswordResetLink: 'שלח קישור לאיפוס סיסמה',
+        homepage: 'דף הבית',
+        forgotPassword: 'שכחת את הסיסמא?',
+        userNotExistCredentials: 'המשתמש שצוין אינו קיים.',
+        emailAlreadyExists: 'האימייל כבר קיים',
+        emailHasBeenSent: 'דוא"ל נשלח!',
+        checkEmailBox: 'בדוק את תיבת הדואר האלקטרוני שלך.',
+        emailHasNotBeenSent: 'האימייל לא נשלח!',
+        tryAgain: 'נסה שוב.',
+        success: 'הצלח',
+        passwordHasBeenChanged: 'הסיסמא שונתה',
+        error: 'שגיאה',
+        resetPassword: 'לאפס את הסיסמה',
+    }
+};

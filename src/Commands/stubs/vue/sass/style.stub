@@ -1,0 +1,44 @@
+
+
+.loading {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  opacity: 0.6;
+  transition: opacity .3s ease-in-out;
+  z-index: 999;
+
+  &:after {
+    position: relative;
+    display: block;
+    margin: 110px auto;
+    content: '';
+    border-radius: 100%;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    border: 4px solid #000;
+    height: 60px;
+    width: 60px;
+    background: transparent !important;
+    -webkit-animation: pulse 1s 0s ease-in-out infinite;
+    animation: pulse 1s 0s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+  50% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    border-width: 12px;
+  }
+  100% {
+    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+}

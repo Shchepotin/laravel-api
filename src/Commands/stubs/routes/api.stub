@@ -1,9 +1,10 @@
 
-
-Route::post("/login", "Api\V1\UserController@login");
-Route::post("/register", "Api\V1\UserController@register");
-Route::post("/password/email", "Api\V1\UserController@sendResetLinkEmail");
-Route::post("/reset/password", "Api\V1\UserController@resetEmail");
+Route::group(['prefix' => 'v1'], function () {
+    Route::post("/login", "Api\V1\UserController@login");
+    Route::post("/register", "Api\V1\UserController@register");
+    Route::post("/password/email", "Api\V1\UserController@sendResetLinkEmail");
+    Route::post("/reset/password", "Api\V1\UserController@resetEmail");
+});
 
 Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     Route::post('/current/user', 'Api\V1\UserController@getCurrentUser');

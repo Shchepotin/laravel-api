@@ -32,6 +32,20 @@ Run migrations:
 php artisan migrate
 ```
 
+## Boilerplate for Vue
+
+```bash
+php artisan laravel-api:publish --vue
+```
+
+```bash
+npm install
+```
+
+```bash
+npm run dev
+```
+
 ## API
 
 ### Register:
@@ -39,7 +53,7 @@ php artisan migrate
 request:
 
 ```javascript
-fetch('/api/register', {
+fetch('/api/v1/register', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
@@ -56,8 +70,8 @@ response:
 
 ```json
 {
-  "status":1,
-  "token":"yQZKTMgpB9wmX3seCH1XKrHyq62YQXijvnoAkFsHXmNcuv5SRhiTuWqbdsIP"
+  "status": 1,
+  "token": "yQZKTMgpB9wmX3seCH1XKrHyq62YQXijvnoAkFsHXmNcuv5SRhiTuWqbdsIP"
 }
 ```
 
@@ -66,7 +80,7 @@ response:
 request:
 
 ```javascript
-fetch('/api/login', {
+fetch('/api/v1/login', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
@@ -83,8 +97,8 @@ response:
 
 ```json
 {
-  "status":1,
-  "token":"yQZKTMgpB9wmX3seCH1XKrHyq62YQXijvnoAkFsHXmNcuv5SRhiTuWqbdsIP"
+  "status": 1,
+  "token": "yQZKTMgpB9wmX3seCH1XKrHyq62YQXijvnoAkFsHXmNcuv5SRhiTuWqbdsIP"
 }
 ```
 
@@ -93,7 +107,7 @@ response:
 request:
 
 ```javascript
-fetch('/api/password/email', {
+fetch('/api/v1/password/email', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
@@ -110,9 +124,9 @@ response:
 
 ```json
 {
-  "status":1,
-  "data":{
-    "message":"passwords.sent"
+  "status": 1,
+  "data": {
+    "message": "passwords.sent"
   }
 }
 ```
@@ -120,7 +134,7 @@ response:
 request:
 
 ```javascript
-fetch('/api/reset/password', {
+fetch('/api/v1/reset/password', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
@@ -137,9 +151,9 @@ response:
 
 ```json
 {
-  "status":1,
-  "data":{
-    "message":"passwords.reset"
+  "status": 1,
+  "data": {
+    "message": "passwords.reset"
   }
 }
 ```

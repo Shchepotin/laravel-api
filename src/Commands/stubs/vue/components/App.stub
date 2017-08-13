@@ -1,0 +1,112 @@
+<template>
+    <div id="app">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <router-link to="/" class="navbar-brand">
+                        Laravel
+                    </router-link>
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <router-link to="/" tag="li" active-class="active" exact>
+                            <router-link to="/" exact>
+                                {{ $t("translation.homepage") }}
+                            </router-link>
+                        </router-link>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                {{ $t(`translation.${currentLang}`) }}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li @click="lang('en')">
+                                    <a href="javascript:;">{{ $t("translation.en") }}</a>
+                                </li>
+                                <li @click="lang('he')">
+                                    <a href="javascript:;">{{ $t("translation.he") }}</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <router-link to="/login" tag="li" active-class="active" v-if="!logged">
+                            <router-link to="/login">
+                                {{ $t("translation.login") }}
+                            </router-link>
+                        </router-link>
+                        <router-link to="/register" tag="li" active-class="active" v-if="!logged">
+                            <router-link to="/register">
+                                {{ $t("translation.register") }}
+                            </router-link>
+                        </router-link>
+                        <li v-if="logged">
+                            <a href="javascript:;" @click="logout">
+                                {{ $t("translation.logout") }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <transition name="slide-fade" mode="out-in">
+            <router-view></router-view>
+        </transition>
+    </div>
+</template>
+
+<script type="text/babel">
+    export default {
+        computed: {
+            logged () {
+                return this.$store.getters.logged;
+            },
+        },
+        methods: {
+            lang (data) {
+                localStorage.setItem('locale', data);
+
+                this.$i18n.locale = data;
+                this.currentLang = data;
+                this.$validator.setLocale(data);
+            },
+            logout () {
+                this.$store.dispatch('logout', {
+                    success: () => {
+                        this.$router.push('/login');
+                    }
+                });
+            },
+        },
+        data () {
+            return {
+                currentLang: (localStorage.getItem('locale') === null) ? 'en' : localStorage.getItem('locale'),
+            }
+        },
+    };
+</script>
+
+<style src="cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css"></style>
+
+<style lang="scss">
+    .slide-fade-enter-active {
+        transition: all .2s ease;
+    }
+
+    .slide-fade-leave-active {
+        transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+
+    .slide-fade-enter, .slide-fade-leave-active {
+        transform: translateX(10px);
+        opacity: 0;
+    }
+</style>

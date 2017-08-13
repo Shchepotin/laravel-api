@@ -1,0 +1,39 @@
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+import Home from '../components/Home.vue';
+import Login from '../components/auth/Login.vue';
+import Register from '../components/auth/Register.vue';
+import PasswordEmail from '../components/auth/PasswordEmail.vue';
+import ResetPassword from '../components/auth/ResetPassword.vue';
+
+Vue.use(VueRouter);
+
+const routes = [
+    {
+        path: '/',
+        component: Home
+    },
+    {
+        path: '/login',
+        component: Login
+    },
+    {
+        path: '/register',
+        component: Register
+    },
+    {
+        path: '/password/reset',
+        component: PasswordEmail
+    },
+    {
+        path: '/password/reset/:token',
+        component: ResetPassword
+    },
+];
+
+export default new VueRouter({
+    routes,
+    mode: 'history',
+    saveScrollPosition: false
+});

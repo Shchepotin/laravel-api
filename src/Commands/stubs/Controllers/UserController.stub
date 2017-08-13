@@ -23,15 +23,27 @@ class UserController extends Controller
             "status" => 0,
         ];
 
-        /*
-         * Auth::once method to log a user into the application for a single request.
-         * No sessions or cookies will be utilized.
-         */
-        if (Auth::once(["email" => $request->input("email"), "password" => $request->input("password")])) {
+        $validator = Validator::make($request->all(), [
+            "email" => "required|string|email|max:255",
+            "password" => "required|string|min:6"
+        ]);
+
+        if ($validator->fails()) {
             $data = [
-                "status" => 1,
-                "token" => Auth::user()->api_token,
+                "status" => 0,
+                "errors" => $validator->errors(),
             ];
+        } else {
+            /*
+             * Auth::once method to log a user into the application for a single request.
+             * No sessions or cookies will be utilized.
+             */
+            if (Auth::once(["email" => $request->input("email"), "password" => $request->input("password")])) {
+                $data = [
+                    "status" => 1,
+                    "token" => Auth::user()->api_token,
+                ];
+            }
         }
 
         return response()->json($data);

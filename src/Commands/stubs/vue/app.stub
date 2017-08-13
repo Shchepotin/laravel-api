@@ -1,0 +1,38 @@
+import './bootstrap';
+import Vue from 'vue';
+import { sync } from 'vuex-router-sync';
+import router from './router';
+import store from './store';
+import i18n from './lang';
+import './components';
+
+import App from './components/App.vue';
+
+store.dispatch('checkLogged');
+
+router.beforeEach((to, from, next) => {
+    if (/^\/?$/i.test(to.path)) {
+        next();
+    } else if (!store.getters.logged && /^\/register\/?/i.test(to.path)) {
+        next();
+    } else if (!store.getters.logged && /^\/password\/reset\/?/i.test(to.path)) {
+        next();
+    } else if (!store.getters.logged && !/^\/login\/?$/i.test(to.path)) {
+        next('/login');
+    } else if (store.getters.logged && /^\/login\/?$/i.test(to.path)) {
+        next('/');
+    } else {
+        next();
+    }
+});
+
+sync(store, router);
+
+new Vue({
+    router,
+    store,
+    i18n,
+    el: '#app',
+    template: '<App/>',
+    components: { App },
+});
