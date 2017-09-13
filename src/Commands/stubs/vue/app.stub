@@ -2,7 +2,7 @@ import './bootstrap';
 import Vue from 'vue';
 import { sync } from 'vuex-router-sync';
 import router from './router';
-import store from './store';
+import store from './store'; // Vuex
 import i18n from './lang';
 import './components';
 
