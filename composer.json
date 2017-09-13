@@ -1,6 +1,7 @@
 {
     "name": "schepotin/laravel-api",
     "description": "Laravel API",
+    "keywords": ["laravel", "api", "vue", "boilerplate"],
     "type": "library",
     "license": "MIT",
     "authors": [
