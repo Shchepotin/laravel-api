@@ -20,7 +20,7 @@ export default {
         });
     },
     getCurrentUser(callback) {
-        window.axios.post('/api/v1/current/user').then(function (data) {
+        window.axios.get('/api/v1/current/user').then(function (data) {
             callback(data.data);
         });
     },

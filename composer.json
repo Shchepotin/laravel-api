@@ -11,6 +11,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
+        "php": ">=7.0",
         "illuminate/support": "~5",
         "illuminate/console": "~5",
         "nikic/php-parser": "~3.0"
@@ -18,6 +19,13 @@
     "autoload": {
         "psr-4": {
             "Schepotin\\LaravelApi\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Schepotin\\LaravelApi\\LaravelApiServiceProvider"
+            ]
         }
     }
 }
