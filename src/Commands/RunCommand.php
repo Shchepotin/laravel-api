@@ -99,7 +99,7 @@ class RunCommand extends Command
                 $json->devDependencies->{"vue-i18n"} = "^6.1.1";
                 $json->devDependencies->{"vuex-router-sync"} = "^4.1.2";
                 $json->devDependencies->{"vee-validate"} = "^2.0.0-rc.10";
-                $json->devDependencies->{"axios"} = "^0.16.2";
+                $json->devDependencies->{"axios"} = "^0.15.3";
                 $json->devDependencies->{"cxlt-vue2-toastr"} = "^1.0.12";
 
                 file_put_contents(
