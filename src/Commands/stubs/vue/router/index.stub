@@ -6,6 +6,7 @@ import Login from '../components/auth/Login.vue';
 import Register from '../components/auth/Register.vue';
 import PasswordEmail from '../components/auth/PasswordEmail.vue';
 import ResetPassword from '../components/auth/ResetPassword.vue';
+import NotFound from '../components/NotFound.vue';
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,11 @@ const routes = [
         path: '/password/reset/:token',
         component: ResetPassword
     },
+    // Must be the last entry in array
+    {
+        path: '*',
+        component: NotFound,
+    }
 ];
 
 export default new VueRouter({
