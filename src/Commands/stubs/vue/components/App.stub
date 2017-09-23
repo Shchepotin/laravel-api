@@ -63,38 +63,36 @@
     </div>
 </template>
 
-<script type="text/babel">
+<script>
     export default {
         computed: {
-            logged () {
+            logged() {
                 return this.$store.getters.logged;
             },
         },
         methods: {
-            lang (data) {
+            lang(data) {
                 localStorage.setItem('locale', data);
 
                 this.$i18n.locale = data;
                 this.currentLang = data;
                 this.$validator.setLocale(data);
             },
-            logout () {
+            logout() {
                 this.$store.dispatch('logout', {
                     success: () => {
                         this.$router.push('/login');
-                    }
+                    },
                 });
             },
         },
-        data () {
+        data() {
             return {
                 currentLang: (localStorage.getItem('locale') === null) ? 'en' : localStorage.getItem('locale'),
-            }
+            };
         },
     };
 </script>
-
-<style src="cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css"></style>
 
 <style lang="scss">
     .slide-fade-enter-active {

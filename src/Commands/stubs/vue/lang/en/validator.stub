@@ -7,5 +7,5 @@ export default {
         email: 'email',
         password: 'password',
         passwordConfirmation: 'confirm password',
-    }
+    },
 };

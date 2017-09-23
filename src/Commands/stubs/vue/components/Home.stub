@@ -15,12 +15,12 @@
 <script>
     export default {
         computed: {
-            logged () {
+            logged() {
                 return this.$store.getters.logged;
             },
-            name () {
+            name() {
                 return this.$store.getters.name;
             },
         },
-    }
+    };
 </script>

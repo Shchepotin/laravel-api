@@ -7,5 +7,5 @@ export default {
         email: 'דוא"ל',
         password: 'סיסמה',
         passwordConfirmation: 'אשר סיסמה',
-    }
+    },
 };

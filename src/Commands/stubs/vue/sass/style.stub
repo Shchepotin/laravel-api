@@ -1,4 +1,5 @@
-
+// Toastr
+@import "node_modules/cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr";
 
 .loading {
   position: absolute;

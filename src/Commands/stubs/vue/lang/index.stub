@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 
-import VeeValidate from 'vee-validate';
-import {Validator} from 'vee-validate';
+import VeeValidate, { Validator } from 'vee-validate';
 
 import en from './en/en';
 import he from './he/he';
@@ -11,34 +10,38 @@ import validationHe from './he/validator';
 
 Validator.extend('login', {
     messages: {
-        en: () => {
+        en() {
             return en.translation.userNotExistCredentials;
         },
-        he: () => {
+        he() {
             return he.translation.userNotExistCredentials;
         },
     },
-    validate: (value) => new Promise(resolve => {
-        resolve({
-            valid: value !== 0,
+    validate(value) {
+        return new Promise((resolve) => {
+            resolve({
+                valid: value !== 0,
+            });
         });
-    })
+    },
 });
 
 Validator.extend('unique', {
     messages: {
-        en: () => {
+        en() {
             return en.translation.emailAlreadyExists;
         },
-        he: () => {
+        he() {
             return he.translation.emailAlreadyExists;
         },
     },
-    validate: (value) => new Promise(resolve => {
-        resolve({
-            valid: value !== 0,
+    validate(value) {
+        return new Promise((resolve) => {
+            resolve({
+                valid: value !== 0,
+            });
         });
-    })
+    },
 });
 
 Vue.use(VueI18n);
@@ -55,6 +58,6 @@ export default new VueI18n({
     locale: (localStorage.getItem('locale') === null) ? 'en' : localStorage.getItem('locale'),
     messages: {
         en,
-        he
-    }
+        he,
+    },
 });

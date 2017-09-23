@@ -38,13 +38,14 @@
 </template>
 
 <script>
-    import * as types from '../../store/mutation-types';
-    import userMixin from '../../mixins/user.js';
+    import userMixin from '../../mixins/user';
 
     export default {
-        mixins: [ userMixin ],
+        mixins: [
+            userMixin,
+        ],
         methods: {
-            auth () {
+            auth() {
                 this.$validator.validateAll();
 
                 if (!this.errors.any()) {
@@ -53,7 +54,7 @@
                     this.$store.dispatch('login', {
                         data: {
                             email: this.email,
-                            password: this.password
+                            password: this.password,
                         },
                         success: () => {
                             this.$router.push('/');
@@ -67,16 +68,16 @@
                 }
             },
         },
-        data () {
+        data() {
             return {
                 progress: false,
-            }
+            };
         },
-        created () {
+        created() {
             this.$validator.attach('password', 'login');
         },
-        beforeDestroy () {
+        beforeDestroy() {
             this.password = '';
         },
-    }
+    };
 </script>

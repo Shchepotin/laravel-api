@@ -13,33 +13,33 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: '/',
-        component: Home
+        component: Home,
     },
     {
         path: '/login',
-        component: Login
+        component: Login,
     },
     {
         path: '/register',
-        component: Register
+        component: Register,
     },
     {
         path: '/password/reset',
-        component: PasswordEmail
+        component: PasswordEmail,
     },
     {
         path: '/password/reset/:token',
-        component: ResetPassword
+        component: ResetPassword,
     },
     // Must be the last entry in array
     {
         path: '*',
         component: NotFound,
-    }
+    },
 ];
 
 export default new VueRouter({
     routes,
     mode: 'history',
-    saveScrollPosition: false
+    saveScrollPosition: false,
 });

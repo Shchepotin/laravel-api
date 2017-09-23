@@ -3,36 +3,36 @@ import * as types from '../store/mutation-types';
 export default {
     computed: {
         name: {
-            get () {
+            get() {
                 return this.$store.getters.name;
             },
-            set (value) {
+            set(value) {
                 this.$store.commit(types.NAME, value);
-            }
+            },
         },
         email: {
-            get () {
+            get() {
                 return this.$store.getters.email;
             },
-            set (value) {
+            set(value) {
                 this.$store.commit(types.EMAIL, value);
-            }
+            },
         },
         password: {
-            get () {
+            get() {
                 return this.$store.getters.password;
             },
-            set (value) {
+            set(value) {
                 this.$store.commit(types.PASSWORD, value);
-            }
+            },
         },
         passwordConfirmation: {
-            get () {
+            get() {
                 return this.$store.getters.passwordConfirmation;
             },
-            set (value) {
+            set(value) {
                 this.$store.commit(types.PASSWORD_CONFIRMATION, value);
-            }
+            },
         },
-    }
-}
+    },
+};

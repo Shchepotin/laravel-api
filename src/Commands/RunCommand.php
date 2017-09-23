@@ -89,18 +89,33 @@ class RunCommand extends Command
 
                 $json = json_decode(file_get_contents(base_path('package.json')));
 
+                $json->scripts->{"eslint"} = "node_modules/.bin/eslint --ext .js,.vue resources/assets/js";
+
+                $json->dependencies->{"vue"} = "^2.4.2";
+                $json->dependencies->{"vuex"} = "^2.3.1";
+                $json->dependencies->{"vue-router"} = "^2.7.0";
+                $json->dependencies->{"vue-i18n"} = "^6.1.1";
+                $json->dependencies->{"vuex-router-sync"} = "^4.1.2";
+                $json->dependencies->{"vee-validate"} = "^2.0.0-rc.10";
+                $json->dependencies->{"axios"} = "^0.15.3";
+                $json->dependencies->{"cxlt-vue2-toastr"} = "^1.0.12";
+                $json->dependencies->{"lodash"} = "^4.17.4";
+                $json->dependencies->{"jquery"} = "^3.1.1";
+                $json->dependencies->{"bootstrap-sass"} = "^3.3.7";
+
                 $json->devDependencies->{"babel-preset-es2015"} = "^6.24.1";
                 $json->devDependencies->{"babel-preset-es2016"} = "^6.24.1";
                 $json->devDependencies->{"babel-preset-es2017"} = "^6.24.1";
                 $json->devDependencies->{"babel-plugin-transform-runtime"} = "^6.23.0";
-                $json->devDependencies->{"vue"} = "^2.4.2";
-                $json->devDependencies->{"vuex"} = "^2.3.1";
-                $json->devDependencies->{"vue-router"} = "^2.7.0";
-                $json->devDependencies->{"vue-i18n"} = "^6.1.1";
-                $json->devDependencies->{"vuex-router-sync"} = "^4.1.2";
-                $json->devDependencies->{"vee-validate"} = "^2.0.0-rc.10";
-                $json->devDependencies->{"axios"} = "^0.15.3";
-                $json->devDependencies->{"cxlt-vue2-toastr"} = "^1.0.12";
+
+                $json->devDependencies->{"eslint"} = "^3.19.0";
+                $json->devDependencies->{"babel-eslint"} = "^7.1.1";
+                $json->devDependencies->{"eslint-config-airbnb-base"} = "^11.1.3";
+                $json->devDependencies->{"eslint-friendly-formatter"} = "^3.0.0";
+                $json->devDependencies->{"eslint-import-resolver-webpack"} = "^0.8.1";
+                $json->devDependencies->{"eslint-loader"} = "^1.7.1";
+                $json->devDependencies->{"eslint-plugin-html"} = "^3.0.0";
+                $json->devDependencies->{"eslint-plugin-import"} =  "^2.2.0";
 
                 file_put_contents(
                     base_path('package.json'),
@@ -115,6 +130,13 @@ class RunCommand extends Command
                     file_put_contents(
                         base_path('.babelrc'),
                         file_get_contents(__DIR__ . "/stubs/vue/babelrc.stub")
+                    );
+                }
+
+                if (!file_exists(base_path('.eslintrc'))) {
+                    file_put_contents(
+                        base_path('.eslintrc.js'),
+                        file_get_contents(__DIR__ . "/stubs/vue/eslintrc.stub")
                     );
                 }
             }
@@ -282,6 +304,10 @@ class RunCommand extends Command
             mkdir(base_path("resources/assets/js/store/modules"), 0755, true);
         }
 
+        if (!is_dir(base_path("resources/assets/js/store/modules/user"))) {
+            mkdir(base_path("resources/assets/js/store/modules/user"), 0755, true);
+        }
+
         if (!is_dir(base_path("resources/assets/js/mixins"))) {
             mkdir(base_path("resources/assets/js/mixins"), 0755, true);
         }
@@ -406,24 +432,38 @@ class RunCommand extends Command
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/store/modules/user.js'))) {
+        if (!file_exists(base_path('resources/assets/js/store/modules/user/index.js'))) {
             file_put_contents(
-                base_path('resources/assets/js/store/modules/user.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/modules/user.stub")
+                base_path('resources/assets/js/store/modules/user/index.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/store/modules/user/index.stub")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/store/actions.js'))) {
+        if (!file_exists(base_path('resources/assets/js/store/modules/user/actions.js'))) {
             file_put_contents(
-                base_path('resources/assets/js/store/actions.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/actions.stub")
+                base_path('resources/assets/js/store/modules/user/actions.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/store/modules/user/actions.stub")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/store/getters.js'))) {
+        if (!file_exists(base_path('resources/assets/js/store/modules/user/getters.js'))) {
             file_put_contents(
-                base_path('resources/assets/js/store/getters.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/getters.stub")
+                base_path('resources/assets/js/store/modules/user/getters.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/store/modules/user/getters.stub")
+            );
+        }
+
+        if (!file_exists(base_path('resources/assets/js/store/modules/user/mutations.js'))) {
+            file_put_contents(
+                base_path('resources/assets/js/store/modules/user/mutations.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/store/modules/user/mutations.stub")
+            );
+        }
+
+        if (!file_exists(base_path('resources/assets/js/store/modules/user/state.js'))) {
+            file_put_contents(
+                base_path('resources/assets/js/store/modules/user/state.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/store/modules/user/state.stub")
             );
         }
 

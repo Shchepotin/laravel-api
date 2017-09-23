@@ -1,9 +1,9 @@
-import './bootstrap';
 import Vue from 'vue';
 import { sync } from 'vuex-router-sync';
 import router from './router';
 import store from './store'; // Vuex
 import i18n from './lang';
+import './bootstrap';
 import './components';
 
 import App from './components/App.vue';
@@ -28,6 +28,7 @@ router.beforeEach((to, from, next) => {
 
 sync(store, router);
 
+/* eslint-disable no-new */
 new Vue({
     router,
     store,
