@@ -24,5 +24,6 @@ export default {
         resetPassword: 'לאפס את הסיסמה',
         notFoundTitle: '404 הדף לא נמצא',
         notFoundText: 'לא הצלחנו למצוא את הדף שאתה מחפש.',
+        profile: 'הפרופיל שלי',
     },
 };

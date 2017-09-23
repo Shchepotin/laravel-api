@@ -57,7 +57,7 @@
                             password: this.password,
                         },
                         success: () => {
-                            this.$router.push('/');
+                            this.$router.push(this.$route.query.redirect || '/');
                         },
                         error: () => {
                             this.$validator.validate('password', 0);

@@ -38,6 +38,24 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="dropdown" v-if="logged">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                {{ name }}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <router-link to="/profile" tag="li" active-class="active">
+                                    <router-link to="/profile">
+                                        {{ $t("translation.profile") }}
+                                    </router-link>
+                                </router-link>
+                                <li>
+                                    <a href="javascript:;" @click="logout">
+                                        {{ $t("translation.logout") }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <router-link to="/login" tag="li" active-class="active" v-if="!logged">
                             <router-link to="/login">
                                 {{ $t("translation.login") }}
@@ -48,11 +66,6 @@
                                 {{ $t("translation.register") }}
                             </router-link>
                         </router-link>
-                        <li v-if="logged">
-                            <a href="javascript:;" @click="logout">
-                                {{ $t("translation.logout") }}
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -64,12 +77,12 @@
 </template>
 
 <script>
+    import userMixin from '../mixins/user';
+
     export default {
-        computed: {
-            logged() {
-                return this.$store.getters.logged;
-            },
-        },
+        mixins: [
+            userMixin,
+        ],
         methods: {
             lang(data) {
                 localStorage.setItem('locale', data);

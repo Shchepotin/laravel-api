@@ -383,6 +383,13 @@ class RunCommand extends Command
             );
         }
 
+        if (!file_exists(base_path('resources/assets/js/components/auth/Profile.vue'))) {
+            file_put_contents(
+                base_path('resources/assets/js/components/auth/Profile.vue'),
+                file_get_contents(__DIR__ . "/stubs/vue/components/auth/Profile.stub")
+            );
+        }
+
         if (!file_exists(base_path('resources/assets/js/lang/index.js'))) {
             file_put_contents(
                 base_path('resources/assets/js/lang/index.js'),

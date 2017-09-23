@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Home from '../components/Home.vue';
+import Profile from '../components/auth/Profile.vue';
 import Login from '../components/auth/Login.vue';
 import Register from '../components/auth/Register.vue';
 import PasswordEmail from '../components/auth/PasswordEmail.vue';
@@ -16,22 +17,41 @@ const routes = [
         component: Home,
     },
     {
+        path: '/profile',
+        component: Profile,
+        meta: {
+            auth: true,
+        },
+    },
+    {
         path: '/login',
         component: Login,
+        meta: {
+            guest: true,
+        },
     },
     {
         path: '/register',
         component: Register,
+        meta: {
+            guest: true,
+        },
     },
     {
         path: '/password/reset',
         component: PasswordEmail,
+        meta: {
+            guest: true,
+        },
     },
     {
         path: '/password/reset/:token',
         component: ResetPassword,
+        meta: {
+            guest: true,
+        },
     },
-    // Must be the last entry in array
+    // Must be the last entry in array.
     {
         path: '*',
         component: NotFound,

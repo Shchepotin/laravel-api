@@ -11,16 +11,17 @@ import App from './components/App.vue';
 store.dispatch('checkLogged');
 
 router.beforeEach((to, from, next) => {
-    if (/^\/?$/i.test(to.path)) {
-        next();
-    } else if (!store.getters.logged && /^\/register\/?/i.test(to.path)) {
-        next();
-    } else if (!store.getters.logged && /^\/password\/reset\/?/i.test(to.path)) {
-        next();
-    } else if (!store.getters.logged && !/^\/login\/?$/i.test(to.path)) {
-        next('/login');
-    } else if (store.getters.logged && /^\/login\/?$/i.test(to.path)) {
-        next('/');
+    if (to.matched.some(record => record.meta.auth) && !store.getters.logged) {
+        next({
+            path: '/login',
+            query: {
+                redirect: to.fullPath,
+            },
+        });
+    } else if (to.matched.some(record => record.meta.guest) && store.getters.logged) {
+        next({
+            path: '/',
+        });
     } else {
         next();
     }

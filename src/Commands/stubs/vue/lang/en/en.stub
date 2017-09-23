@@ -24,5 +24,6 @@ export default {
         resetPassword: 'Reset password',
         notFoundTitle: '404 Page not found',
         notFoundText: 'We couldn`t find the page you`re looking for.',
+        profile: 'Profile',
     },
 };
