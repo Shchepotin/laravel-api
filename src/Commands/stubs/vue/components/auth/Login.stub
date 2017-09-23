@@ -39,26 +39,10 @@
 
 <script>
     import * as types from '../../store/mutation-types';
+    import userMixin from '../../mixins/user.js';
 
     export default {
-        computed: {
-            email: {
-                get () {
-                    return this.$store.getters.email;
-                },
-                set (value) {
-                    this.$store.commit(types.EMAIL, value);
-                }
-            },
-            password: {
-                get () {
-                    return this.$store.getters.password;
-                },
-                set (value) {
-                    this.$store.commit(types.PASSWORD, value);
-                }
-            },
-        },
+        mixins: [ userMixin ],
         methods: {
             auth () {
                 this.$validator.validateAll();

@@ -281,6 +281,10 @@ class RunCommand extends Command
         if (!is_dir(base_path("resources/assets/js/store/modules"))) {
             mkdir(base_path("resources/assets/js/store/modules"), 0755, true);
         }
+
+        if (!is_dir(base_path("resources/assets/js/mixins"))) {
+            mkdir(base_path("resources/assets/js/mixins"), 0755, true);
+        }
     }
 
     /**
@@ -301,6 +305,13 @@ class RunCommand extends Command
             file_put_contents(
                 base_path('resources/assets/js/components/index.js'),
                 file_get_contents(__DIR__ . "/stubs/vue/components/index.stub")
+            );
+        }
+
+        if (!file_exists(base_path('resources/assets/js/components/NotFound.vue'))) {
+            file_put_contents(
+                base_path('resources/assets/js/components/NotFound.vue'),
+                file_get_contents(__DIR__ . "/stubs/vue/components/NotFound.stub")
             );
         }
 
@@ -420,6 +431,13 @@ class RunCommand extends Command
             file_put_contents(
                 base_path('resources/assets/js/store/mutation-types.js'),
                 file_get_contents(__DIR__ . "/stubs/vue/store/mutation-types.stub")
+            );
+        }
+
+        if (!file_exists(base_path('resources/assets/js/mixins/user.js'))) {
+            file_put_contents(
+                base_path('resources/assets/js/mixins/user.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/mixins/user.stub")
             );
         }
     }
