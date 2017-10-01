@@ -9,11 +9,11 @@ export const login = ({ dispatch, commit }, payload) => {
             });
 
             if (payload !== undefined && payload.success !== undefined) {
-                dispatch('getCurrentUser', {
+                dispatch('getUserCurrent', {
                     success: payload.success,
                 });
             } else {
-                dispatch('getCurrentUser');
+                dispatch('getUserCurrent');
             }
         } else if (json.status === 0) {
             if (payload !== undefined && payload.error !== undefined) {
@@ -44,11 +44,11 @@ export const register = ({ dispatch, commit }, payload) => {
             });
 
             if (payload !== undefined && payload.success !== undefined) {
-                dispatch('getCurrentUser', {
+                dispatch('getUserCurrent', {
                     success: payload.success,
                 });
             } else {
-                dispatch('getCurrentUser');
+                dispatch('getUserCurrent');
             }
         } else if (json.status === 0) {
             if (payload !== undefined && payload.error !== undefined) {
@@ -86,8 +86,8 @@ export const resetPassword = (context, payload) => {
     });
 };
 
-export const getCurrentUser = ({ commit }, payload) => {
-    user.getCurrentUser((json) => {
+export const getUserCurrent = ({ commit }, payload) => {
+    user.getUserCurrent((json) => {
         if (json.status === 1) {
             commit(types.ID, json.data.id);
             commit(types.NAME, json.data.name);
@@ -110,7 +110,7 @@ export const checkLogged = ({ dispatch, commit }) => {
             token,
         });
 
-        dispatch('getCurrentUser');
+        dispatch('getUserCurrent');
     }
 };
 
@@ -120,6 +120,6 @@ export default {
     register,
     passwordEmail,
     resetPassword,
-    getCurrentUser,
+    getUserCurrent,
     checkLogged,
 };

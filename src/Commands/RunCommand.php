@@ -91,12 +91,12 @@ class RunCommand extends Command
 
                 $json->scripts->{"eslint"} = "node_modules/.bin/eslint --ext .js,.vue resources/assets/js";
 
-                $json->dependencies->{"vue"} = "^2.4.2";
-                $json->dependencies->{"vuex"} = "^2.3.1";
+                $json->dependencies->{"vue"} = "^2.4.4";
+                $json->dependencies->{"vuex"} = "^2.4.1";
                 $json->dependencies->{"vue-router"} = "^2.7.0";
                 $json->dependencies->{"vue-i18n"} = "^6.1.1";
                 $json->dependencies->{"vuex-router-sync"} = "^4.1.2";
-                $json->dependencies->{"vee-validate"} = "^2.0.0-rc.10";
+                $json->dependencies->{"vee-validate"} = "^2.0.0-rc.18";
                 $json->dependencies->{"axios"} = "^0.15.3";
                 $json->dependencies->{"cxlt-vue2-toastr"} = "^1.0.12";
                 $json->dependencies->{"lodash"} = "^4.17.4";

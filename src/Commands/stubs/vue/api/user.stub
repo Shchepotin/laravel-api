@@ -19,8 +19,8 @@ export default {
             callback(data.data);
         });
     },
-    getCurrentUser(callback) {
-        window.axios.get('/api/v1/current/user').then((data) => {
+    getUserCurrent(callback) {
+        window.axios.get('/api/v1/user/current').then((data) => {
             callback(data.data);
         });
     },

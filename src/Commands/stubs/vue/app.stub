@@ -13,14 +13,14 @@ store.dispatch('checkLogged');
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.auth) && !store.getters.logged) {
         next({
-            path: '/login',
+            name: 'auth.login',
             query: {
                 redirect: to.fullPath,
             },
         });
     } else if (to.matched.some(record => record.meta.guest) && store.getters.logged) {
         next({
-            path: '/',
+            name: 'home',
         });
     } else {
         next();

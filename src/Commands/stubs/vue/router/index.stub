@@ -14,10 +14,12 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: '/',
+        name: 'home',
         component: Home,
     },
     {
         path: '/profile',
+        name: 'auth.profile',
         component: Profile,
         meta: {
             auth: true,
@@ -25,6 +27,7 @@ const routes = [
     },
     {
         path: '/login',
+        name: 'auth.login',
         component: Login,
         meta: {
             guest: true,
@@ -32,6 +35,7 @@ const routes = [
     },
     {
         path: '/register',
+        name: 'auth.register',
         component: Register,
         meta: {
             guest: true,
@@ -39,6 +43,7 @@ const routes = [
     },
     {
         path: '/password/reset',
+        name: 'auth.password.email',
         component: PasswordEmail,
         meta: {
             guest: true,
@@ -46,6 +51,7 @@ const routes = [
     },
     {
         path: '/password/reset/:token',
+        name: 'auth.reset.password',
         component: ResetPassword,
         meta: {
             guest: true,

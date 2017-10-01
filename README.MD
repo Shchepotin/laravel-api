@@ -163,7 +163,7 @@ response:
 request:
 
 ```javascript
-fetch('/api/v1/current/user', {
+fetch('/api/v1/user/current', {
   method: 'GET',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',

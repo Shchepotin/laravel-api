@@ -1,58 +1,10 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 
-import VeeValidate, { Validator } from 'vee-validate';
-
 import en from './en/en';
 import he from './he/he';
-import validationEn from './en/validator';
-import validationHe from './he/validator';
-
-Validator.extend('login', {
-    messages: {
-        en() {
-            return en.translation.userNotExistCredentials;
-        },
-        he() {
-            return he.translation.userNotExistCredentials;
-        },
-    },
-    validate(value) {
-        return new Promise((resolve) => {
-            resolve({
-                valid: value !== 0,
-            });
-        });
-    },
-});
-
-Validator.extend('unique', {
-    messages: {
-        en() {
-            return en.translation.emailAlreadyExists;
-        },
-        he() {
-            return he.translation.emailAlreadyExists;
-        },
-    },
-    validate(value) {
-        return new Promise((resolve) => {
-            resolve({
-                valid: value !== 0,
-            });
-        });
-    },
-});
 
 Vue.use(VueI18n);
-Vue.use(VeeValidate, {
-    fieldsBagName: 'fieldsValidation',
-    locale: (localStorage.getItem('locale') === null) ? 'en' : localStorage.getItem('locale'),
-    dictionary: {
-        en: validationEn,
-        he: validationHe,
-    },
-});
 
 export default new VueI18n({
     locale: (localStorage.getItem('locale') === null) ? 'en' : localStorage.getItem('locale'),
