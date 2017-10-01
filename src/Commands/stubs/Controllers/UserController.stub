@@ -177,11 +177,11 @@ class UserController extends Controller
     }
 
     /**
-     * Get current info about logged user.
+     * Get info about current logged user.
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getCurrentUser()
+    public function getUserCurrent()
     {
         return response()->json([
             "status" => 1,

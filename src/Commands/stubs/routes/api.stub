@@ -7,5 +7,5 @@ Route::group(['prefix' => 'v1'], function () {
 });
 
 Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
-    Route::get('/user/current', 'Api\V1\UserController@getCurrentUser');
+    Route::get('/user/current', 'Api\V1\UserController@getUserCurrent');
 });
