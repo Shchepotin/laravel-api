@@ -91,6 +91,14 @@ class RunCommand extends Command
 
                 $json->scripts->{"eslint"} = "node_modules/.bin/eslint --ext .js,.vue resources/assets/js";
 
+                if (!isset($json->dependencies)) {
+                    $json->dependencies = (object)[];
+                }
+
+                if (!isset($json->devDependencies)) {
+                    $json->devDependencies = (object)[];
+                }
+
                 $json->dependencies->{"vue"} = "^2.4.4";
                 $json->dependencies->{"vuex"} = "^2.4.1";
                 $json->dependencies->{"vue-router"} = "^2.7.0";
