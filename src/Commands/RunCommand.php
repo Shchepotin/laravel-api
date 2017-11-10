@@ -276,6 +276,10 @@ class RunCommand extends Command
      */
     protected function createVueDirectories()
     {
+        if (!is_dir(base_path("resources/views/layouts"))) {
+            mkdir(base_path("resources/views/layouts"), 0755, true);
+        }
+
         if (!is_dir(base_path("resources/assets/js/api"))) {
             mkdir(base_path("resources/assets/js/api"), 0755, true);
         }

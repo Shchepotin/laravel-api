@@ -2,12 +2,6 @@
 
 ## Install
 
-Run artisan command for laravel basic authorization:
-
-```bash
-php artisan make:auth
-```
-
 Install package:
 
 ```bash
