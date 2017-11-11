@@ -125,6 +125,12 @@ class RunCommand extends Command
                 $json->devDependencies->{"eslint-plugin-html"} = "^3.0.0";
                 $json->devDependencies->{"eslint-plugin-import"} =  "^2.2.0";
 
+                unset($json->devDependencies->{"vue"});
+                unset($json->devDependencies->{"axios"});
+                unset($json->devDependencies->{"jquery"});
+                unset($json->devDependencies->{"bootstrap-sass"});
+                unset($json->devDependencies->{"lodash"});
+
                 file_put_contents(
                     base_path('package.json'),
                     (preg_replace(
@@ -276,6 +282,10 @@ class RunCommand extends Command
      */
     protected function createVueDirectories()
     {
+        if (!is_dir(base_path("resources/views/layouts"))) {
+            mkdir(base_path("resources/views/layouts"), 0755, true);
+        }
+
         if (!is_dir(base_path("resources/assets/js/api"))) {
             mkdir(base_path("resources/assets/js/api"), 0755, true);
         }
