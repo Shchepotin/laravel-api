@@ -11,7 +11,7 @@ composer require schepotin/laravel-api
 Run command:
 
 ```bash
-php artisan laravel-api:publish
+php artisan laravel-api:publish --api
 ```
 
 Run migrations:
