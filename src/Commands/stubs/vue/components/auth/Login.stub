@@ -45,26 +45,24 @@
             userMixin,
         ],
         methods: {
-            auth() {
+            async auth() {
                 this.$validator.validateAll();
 
                 if (!this.errors.any()) {
                     this.progress = true;
 
-                    this.$store.dispatch('login', {
-                        data: {
+                    try {
+                        await this.$store.dispatch('login', {
                             email: this.email,
                             password: this.password,
-                        },
-                        success: () => {
-                            this.$router.push(this.$route.query.redirect || { name: 'home' });
-                        },
-                        error: () => {
-                            this.$validator.validate('password', 0);
+                        });
 
-                            this.progress = false;
-                        },
-                    });
+                        this.$router.push(this.$route.query.redirect || { name: 'home' });
+                    } catch (e) {
+                        this.$validator.validate('password', 0);
+
+                        this.progress = false;
+                    }
                 }
             },
         },

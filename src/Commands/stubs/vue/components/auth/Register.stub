@@ -52,30 +52,28 @@
             userMixin,
         ],
         methods: {
-            register() {
+            async register() {
                 this.$validator.validateAll();
 
                 if (!this.errors.any()) {
                     this.progress = true;
 
-                    this.$store.dispatch('register', {
-                        data: {
+                    try {
+                        await this.$store.dispatch('register', {
                             name: this.name,
                             email: this.email,
                             password: this.password,
                             password_confirmation: this.passwordConfirmation,
-                        },
-                        success: () => {
-                            this.$router.push({
-                                name: 'home',
-                            });
-                        },
-                        error: () => {
-                            this.$validator.validate('email', 0);
+                        });
 
-                            this.progress = false;
-                        },
-                    });
+                        this.$router.push({
+                            name: 'home',
+                        });
+                    } catch (e) {
+                        this.$validator.validate('email', 0);
+
+                        this.progress = false;
+                    }
                 }
             },
         },

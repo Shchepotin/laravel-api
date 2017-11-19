@@ -22,12 +22,10 @@ Validator.extend('login', {
             return he.translation.userNotExistCredentials;
         },
     },
-    validate(value) {
-        return new Promise((resolve) => {
-            resolve({
-                valid: value !== 0,
-            });
-        });
+    async validate(value) {
+        return {
+            valid: value !== 0,
+        };
     },
 });
 
@@ -40,12 +38,10 @@ Validator.extend('unique', {
             return he.translation.emailAlreadyExists;
         },
     },
-    validate(value) {
-        return new Promise((resolve) => {
-            resolve({
-                valid: value !== 0,
-            });
-        });
+    async validate(value) {
+        return {
+            valid: value !== 0,
+        };
     },
 });
 

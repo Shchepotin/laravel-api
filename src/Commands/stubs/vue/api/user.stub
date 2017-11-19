@@ -1,27 +1,27 @@
 export default {
-    login(params, callback) {
-        window.axios.post('/api/v1/login', params).then((data) => {
-            callback(data.data);
-        });
+    async login(params) {
+        const result = await window.axios.post('/api/v1/login', params);
+
+        return result.data;
     },
-    register(params, callback) {
-        window.axios.post('/api/v1/register', params).then((data) => {
-            callback(data.data);
-        });
+    async register(params) {
+        const result = await window.axios.post('/api/v1/register', params);
+
+        return result.data;
     },
-    passwordEmail(params, callback) {
-        window.axios.post('/api/v1/password/email', params).then((data) => {
-            callback(data.data);
-        });
+    async passwordEmail(params) {
+        const result = await window.axios.post('/api/v1/password/email', params);
+
+        return result.data;
     },
-    resetPassword(params, callback) {
-        window.axios.post('/api/v1/reset/password', params).then((data) => {
-            callback(data.data);
-        });
+    async resetPassword(params) {
+        const result = await window.axios.post('/api/v1/reset/password', params);
+
+        return result.data;
     },
-    getUserCurrent(callback) {
-        window.axios.get('/api/v1/user/current').then((data) => {
-            callback(data.data);
-        });
+    async getUserCurrent() {
+        const result = await window.axios.get('/api/v1/user/current');
+
+        return result.data;
     },
 };
