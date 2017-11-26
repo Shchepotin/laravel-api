@@ -53,9 +53,9 @@
         ],
         methods: {
             async register() {
-                this.$validator.validateAll();
+                const validated = await this.$validator.validateAll();
 
-                if (!this.errors.any()) {
+                if (validated) {
                     this.progress = true;
 
                     try {
