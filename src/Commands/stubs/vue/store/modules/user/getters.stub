@@ -6,6 +6,7 @@ export default {
     token: state => state.token,
     password: state => state.password,
     passwordConfirmation: state => state.passwordConfirmation,
+    currentLang: state => state.currentLang,
     createdAt: state => state.createdAt,
     updatedAt: state => state.updatedAt,
 };

@@ -1,5 +1,6 @@
 export default {
     translation: {
+        appName: 'Laravel',
         en: 'English',
         he: 'עברית',
         login: 'Login',
@@ -11,7 +12,7 @@ export default {
         confirmPassword: 'Confirm password',
         sendPasswordResetLink: 'Send Password Reset Link',
         homepage: 'Homepage',
-        forgotPassword: 'forgot password?',
+        forgotPassword: 'Forgot password?',
         userNotExistCredentials: 'The specified user does not exist.',
         emailAlreadyExists: 'Email already exists',
         emailHasBeenSent: 'Email has been sent!',

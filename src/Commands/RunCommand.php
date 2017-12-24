@@ -182,8 +182,8 @@ class RunCommand extends Command
                 );
 
                 file_put_contents(
-                    base_path('resources/assets/js/app.js'),
-                    file_get_contents(__DIR__ . "/stubs/vue/app.stub")
+                    base_path('resources/assets/js/bootstrap.js'),
+                    file_get_contents(__DIR__ . "/stubs/vue/bootstrap.stub")
                 );
 
                 file_put_contents(
@@ -213,7 +213,8 @@ class RunCommand extends Command
                 $json->dependencies->{"vue-router"} = "^2.7.0";
                 $json->dependencies->{"vue-i18n"} = "^6.1.1";
                 $json->dependencies->{"vuex-router-sync"} = "^4.1.2";
-                $json->dependencies->{"vee-validate"} = "^2.0.0-rc.18";
+                $json->dependencies->{"vee-validate"} = "^2.0.0-rc.27";
+                $json->dependencies->{"vue-meta"} = "^1.4.0";
                 $json->dependencies->{"axios"} = "^0.15.3";
                 $json->dependencies->{"cxlt-vue2-toastr"} = "^1.0.12";
                 $json->dependencies->{"lodash"} = "^4.17.4";
@@ -223,6 +224,7 @@ class RunCommand extends Command
                 $json->devDependencies->{"babel-preset-es2015"} = "^6.24.1";
                 $json->devDependencies->{"babel-preset-es2016"} = "^6.24.1";
                 $json->devDependencies->{"babel-preset-es2017"} = "^6.24.1";
+                $json->devDependencies->{"babel-plugin-syntax-dynamic-import"} =  "^6.18.0";
                 $json->devDependencies->{"babel-plugin-transform-runtime"} = "^6.23.0";
 
                 $json->devDependencies->{"eslint"} = "^3.19.0";
@@ -247,6 +249,11 @@ class RunCommand extends Command
                         '$1',
                         json_encode($json, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT))
                     )
+                );
+
+                file_put_contents(
+                    base_path('webpack.mix.js'),
+                    file_get_contents(__DIR__ . "/stubs/vue/webpack.mix.stub")
                 );
 
                 if (!file_exists(base_path('.babelrc'))) {
@@ -295,12 +302,20 @@ class RunCommand extends Command
             mkdir(base_path("resources/assets/js/api"), 0755, true);
         }
 
+        if (!is_dir(base_path("resources/assets/js/plugins"))) {
+            mkdir(base_path("resources/assets/js/plugins"), 0755, true);
+        }
+
         if (!is_dir(base_path("resources/assets/js/components"))) {
             mkdir(base_path("resources/assets/js/components"), 0755, true);
         }
 
-        if (!is_dir(base_path("resources/assets/js/components/auth"))) {
-            mkdir(base_path("resources/assets/js/components/auth"), 0755, true);
+        if (!is_dir(base_path("resources/assets/js/pages"))) {
+            mkdir(base_path("resources/assets/js/pages"), 0755, true);
+        }
+
+        if (!is_dir(base_path("resources/assets/js/pages/auth"))) {
+            mkdir(base_path("resources/assets/js/pages/auth"), 0755, true);
         }
 
         if (!is_dir(base_path("resources/assets/js/lang"))) {
@@ -350,73 +365,80 @@ class RunCommand extends Command
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/components/index.js'))) {
+        if (!file_exists(base_path('resources/assets/js/components/.gitkeep'))) {
             file_put_contents(
-                base_path('resources/assets/js/components/index.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/components/index.stub")
+                base_path('resources/assets/js/components/.gitkeep'),
+                file_get_contents(__DIR__ . "/stubs/vue/components/.gitkeep")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/components/NotFound.vue'))) {
+        if (!file_exists(base_path('resources/assets/js/pages/NotFound.vue'))) {
             file_put_contents(
-                base_path('resources/assets/js/components/NotFound.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/components/NotFound.stub")
+                base_path('resources/assets/js/pages/NotFound.vue'),
+                file_get_contents(__DIR__ . "/stubs/vue/pages/NotFound.stub")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/components/Home.vue'))) {
+        if (!file_exists(base_path('resources/assets/js/pages/Error.vue'))) {
             file_put_contents(
-                base_path('resources/assets/js/components/Home.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/components/Home.stub")
+                base_path('resources/assets/js/pages/Error.vue'),
+                file_get_contents(__DIR__ . "/stubs/vue/pages/Error.stub")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/components/App.vue'))) {
+        if (!file_exists(base_path('resources/assets/js/pages/Loading.vue'))) {
             file_put_contents(
-                base_path('resources/assets/js/components/App.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/components/App.stub")
+                base_path('resources/assets/js/pages/Loading.vue'),
+                file_get_contents(__DIR__ . "/stubs/vue/pages/Loading.stub")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/components/auth/Login.vue'))) {
+        if (!file_exists(base_path('resources/assets/js/pages/Home.vue'))) {
             file_put_contents(
-                base_path('resources/assets/js/components/auth/Login.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/components/auth/Login.stub")
+                base_path('resources/assets/js/pages/Home.vue'),
+                file_get_contents(__DIR__ . "/stubs/vue/pages/Home.stub")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/components/auth/Register.vue'))) {
+        if (!file_exists(base_path('resources/assets/js/pages/App.vue'))) {
             file_put_contents(
-                base_path('resources/assets/js/components/auth/Register.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/components/auth/Register.stub")
+                base_path('resources/assets/js/pages/App.vue'),
+                file_get_contents(__DIR__ . "/stubs/vue/pages/App.stub")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/components/auth/PasswordEmail.vue'))) {
+        if (!file_exists(base_path('resources/assets/js/pages/auth/Login.vue'))) {
             file_put_contents(
-                base_path('resources/assets/js/components/auth/PasswordEmail.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/components/auth/PasswordEmail.stub")
+                base_path('resources/assets/js/pages/auth/Login.vue'),
+                file_get_contents(__DIR__ . "/stubs/vue/pages/auth/Login.stub")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/components/auth/ResetPassword.vue'))) {
+        if (!file_exists(base_path('resources/assets/js/pages/auth/Register.vue'))) {
             file_put_contents(
-                base_path('resources/assets/js/components/auth/ResetPassword.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/components/auth/ResetPassword.stub")
+                base_path('resources/assets/js/pages/auth/Register.vue'),
+                file_get_contents(__DIR__ . "/stubs/vue/pages/auth/Register.stub")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/components/auth/Profile.vue'))) {
+        if (!file_exists(base_path('resources/assets/js/pages/auth/PasswordEmail.vue'))) {
             file_put_contents(
-                base_path('resources/assets/js/components/auth/Profile.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/components/auth/Profile.stub")
+                base_path('resources/assets/js/pages/auth/PasswordEmail.vue'),
+                file_get_contents(__DIR__ . "/stubs/vue/pages/auth/PasswordEmail.stub")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/lang/index.js'))) {
+        if (!file_exists(base_path('resources/assets/js/pages/auth/ResetPassword.vue'))) {
             file_put_contents(
-                base_path('resources/assets/js/lang/index.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/lang/index.stub")
+                base_path('resources/assets/js/pages/auth/ResetPassword.vue'),
+                file_get_contents(__DIR__ . "/stubs/vue/pages/auth/ResetPassword.stub")
+            );
+        }
+
+        if (!file_exists(base_path('resources/assets/js/pages/auth/Profile.vue'))) {
+            file_put_contents(
+                base_path('resources/assets/js/pages/auth/Profile.vue'),
+                file_get_contents(__DIR__ . "/stubs/vue/pages/auth/Profile.stub")
             );
         }
 
@@ -508,6 +530,34 @@ class RunCommand extends Command
             file_put_contents(
                 base_path('resources/assets/js/mixins/user.js'),
                 file_get_contents(__DIR__ . "/stubs/vue/mixins/user.stub")
+            );
+        }
+
+        if (!file_exists(base_path('resources/assets/js/plugins/lang.js'))) {
+            file_put_contents(
+                base_path('resources/assets/js/plugins/lang.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/plugins/lang.stub")
+            );
+        }
+
+        if (!file_exists(base_path('resources/assets/js/plugins/meta.js'))) {
+            file_put_contents(
+                base_path('resources/assets/js/plugins/meta.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/plugins/meta.stub")
+            );
+        }
+
+        if (!file_exists(base_path('resources/assets/js/plugins/toastr.js'))) {
+            file_put_contents(
+                base_path('resources/assets/js/plugins/toastr.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/plugins/toastr.stub")
+            );
+        }
+
+        if (!file_exists(base_path('resources/assets/js/plugins/validator.js'))) {
+            file_put_contents(
+                base_path('resources/assets/js/plugins/validator.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/plugins/validator.stub")
             );
         }
     }

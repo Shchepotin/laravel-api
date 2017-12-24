@@ -1,11 +1,12 @@
 export default {
-    id: 0,
+    id: null,
     name: '',
     email: '',
     password: '',
     passwordConfirmation: '',
     logged: false,
     token: '',
+    currentLang: localStorage.getItem('locale') === null ? 'en' : localStorage.getItem('locale'),
     createdAt: '',
     updatedAt: '',
 };

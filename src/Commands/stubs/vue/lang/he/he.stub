@@ -1,5 +1,6 @@
 export default {
     translation: {
+        appName: 'Laravel',
         en: 'English',
         he: 'עברית',
         login: 'התחברות',

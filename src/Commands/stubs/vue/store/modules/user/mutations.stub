@@ -30,6 +30,11 @@ export default {
     [types.PASSWORD_CONFIRMATION](state, payload) {
         state.passwordConfirmation = payload;
     },
+    [types.CURRENT_LANG](state, payload) {
+        localStorage.setItem('locale', payload);
+
+        state.currentLang = payload;
+    },
     [types.CREATED_AT](state, payload) {
         state.createdAt = payload;
     },

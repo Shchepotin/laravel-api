@@ -1,13 +1,50 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import { sync } from 'vuex-router-sync';
 
-import Home from '../components/Home.vue';
-import Profile from '../components/auth/Profile.vue';
-import Login from '../components/auth/Login.vue';
-import Register from '../components/auth/Register.vue';
-import PasswordEmail from '../components/auth/PasswordEmail.vue';
-import ResetPassword from '../components/auth/ResetPassword.vue';
-import NotFound from '../components/NotFound.vue';
+import LoadingComponent from '../pages/Loading.vue';
+import ErrorComponent from '../pages/Error.vue';
+import store from '../store';
+
+const options = {
+    loading: LoadingComponent,
+    error: ErrorComponent,
+};
+
+const Home = () => ({
+    ...options,
+    component: import('../pages/Home.vue'),
+});
+
+const Profile = () => ({
+    ...options,
+    component: import('../pages/auth/Profile.vue'),
+});
+
+const Login = () => ({
+    ...options,
+    component: import('../pages/auth/Login.vue'),
+});
+
+const Register = () => ({
+    ...options,
+    component: import('../pages/auth/Register.vue'),
+});
+
+const PasswordEmail = () => ({
+    ...options,
+    component: import('../pages/auth/PasswordEmail.vue'),
+});
+
+const ResetPassword = () => ({
+    ...options,
+    component: import('../pages/auth/ResetPassword.vue'),
+});
+
+const NotFound = () => ({
+    ...options,
+    component: import('../pages/NotFound.vue'),
+});
 
 Vue.use(VueRouter);
 
@@ -57,6 +94,7 @@ const routes = [
             guest: true,
         },
     },
+
     // Must be the last entry in array.
     {
         path: '*',
@@ -64,8 +102,43 @@ const routes = [
     },
 ];
 
-export default new VueRouter({
+const router = new VueRouter({
     routes,
     mode: 'history',
     saveScrollPosition: false,
+    scrollBehavior() {
+        return {
+            x: 0,
+            y: 0,
+        };
+    },
 });
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.auth) && !store.getters.logged) {
+        /*
+         * If the user is not authenticated and visits
+         * a page that requires authentication, redirect to the login page
+         */
+        next({
+            name: 'auth.login',
+            query: {
+                redirect: to.fullPath,
+            },
+        });
+    } else if (to.matched.some(record => record.meta.guest) && store.getters.logged) {
+        /*
+         * If the user is authenticated and visits
+         * an guest page, redirect to the homepage
+         */
+        next({
+            name: 'home',
+        });
+    } else {
+        next();
+    }
+});
+
+sync(store, router);
+
+export default router;

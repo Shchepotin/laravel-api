@@ -37,5 +37,13 @@ export default {
                 this.$store.commit(types.PASSWORD_CONFIRMATION, value);
             },
         },
+        currentLang: {
+            get() {
+                return this.$store.getters.currentLang;
+            },
+            set(value) {
+                this.$store.commit(types.CURRENT_LANG, value);
+            },
+        },
     },
 };

@@ -10,61 +10,72 @@
                         <span class="icon-bar"></span>
                     </button>
                     <router-link :to="{ name: 'home' }" class="navbar-brand">
-                        Laravel
+                        {{ $t("translation.appName") }}
                     </router-link>
                 </div>
 
                 <div class="collapse navbar-collapse" id="navbar-collapse">
                     <ul class="nav navbar-nav">
                         <router-link :to="{ name: 'home' }" tag="li" active-class="active" exact>
-                            <router-link :to="{ name: 'home' }" exact>
+                            <a>
                                 {{ $t("translation.homepage") }}
-                            </router-link>
+                            </a>
                         </router-link>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <a
+                                href="#"
+                                class="dropdown-toggle"
+                                data-toggle="dropdown"
+                                role="button" aria-haspopup="true"
+                                aria-expanded="false">
                                 {{ $t(`translation.${currentLang}`) }}
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li @click="lang('en')">
-                                    <a href="javascript:;">{{ $t("translation.en") }}</a>
+                                <li>
+                                    <a href="#" @click.prevent="lang('en')">{{ $t("translation.en") }}</a>
                                 </li>
-                                <li @click="lang('he')">
-                                    <a href="javascript:;">{{ $t("translation.he") }}</a>
+                                <li>
+                                    <a href="#" @click.prevent="lang('he')">{{ $t("translation.he") }}</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="dropdown" v-if="logged">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <a
+                                href="#"
+                                class="dropdown-toggle"
+                                data-toggle="dropdown"
+                                role="button"
+                                aria-haspopup="true"
+                                aria-expanded="false">
                                 {{ name }}
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <router-link :to="{ name: 'auth.profile' }" tag="li" active-class="active">
-                                    <router-link :to="{ name: 'auth.profile' }">
+                                    <a>
                                         {{ $t("translation.profile") }}
-                                    </router-link>
+                                    </a>
                                 </router-link>
                                 <li>
-                                    <a href="javascript:;" @click="logout">
+                                    <a href="#" @click.prevent="logout">
                                         {{ $t("translation.logout") }}
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <router-link :to="{ name: 'auth.login' }" tag="li" active-class="active" v-if="!logged">
-                            <router-link :to="{ name: 'auth.login' }">
+                            <a>
                                 {{ $t("translation.login") }}
-                            </router-link>
+                            </a>
                         </router-link>
                         <router-link :to="{ name: 'auth.register' }" tag="li" active-class="active" v-if="!logged">
-                            <router-link :to="{ name: 'auth.register' }">
+                            <a>
                                 {{ $t("translation.register") }}
-                            </router-link>
+                            </a>
                         </router-link>
                     </ul>
                 </div>
@@ -85,8 +96,6 @@
         ],
         methods: {
             lang(data) {
-                localStorage.setItem('locale', data);
-
                 this.$i18n.locale = data;
                 this.currentLang = data;
                 this.$validator.locale = data;
@@ -98,11 +107,6 @@
                     name: 'auth.login',
                 });
             },
-        },
-        data() {
-            return {
-                currentLang: (localStorage.getItem('locale') === null) ? 'en' : localStorage.getItem('locale'),
-            };
         },
     };
 </script>

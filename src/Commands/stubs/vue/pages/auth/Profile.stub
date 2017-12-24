@@ -24,5 +24,10 @@
         mixins: [
             userMixin,
         ],
+        metaInfo() {
+            return {
+                title: this.name,
+            };
+        },
     };
 </script>

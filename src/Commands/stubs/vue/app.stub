@@ -1,33 +1,38 @@
-import Vue from 'vue';
-import { sync } from 'vuex-router-sync';
-import router from './router';
-import store from './store'; // Vuex
-import i18n from './lang';
-import './bootstrap';
-import './components';
+/* ============
+ * Main File
+ * ============
+ *
+ * Will initialize the application.
+ */
 
-import App from './components/App.vue';
+import Vue from 'vue';
+
+/* ============
+ * Plugins
+ * ============
+ *
+ * Import and bootstrap the plugins.
+ */
+import router from './router';
+import store from './store';
+import i18n from './plugins/lang';
+import './plugins/toastr';
+import './plugins/validator';
+import './plugins/meta';
+import './bootstrap';
+
+/* ============
+ * Main App
+ * ============
+ *
+ * Last but not least, we import the main application.
+ */
+
+import App from './pages/App.vue';
 
 store.dispatch('checkLogged');
 
-router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.auth) && !store.getters.logged) {
-        next({
-            name: 'auth.login',
-            query: {
-                redirect: to.fullPath,
-            },
-        });
-    } else if (to.matched.some(record => record.meta.guest) && store.getters.logged) {
-        next({
-            name: 'home',
-        });
-    } else {
-        next();
-    }
-});
-
-sync(store, router);
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
