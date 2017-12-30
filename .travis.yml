@@ -5,6 +5,13 @@ php:
   - 7.1
   - 7.2
 
+notifications:
+  email:
+    recipients:
+      - vl.schepotin@gmail.com
+    on_success: always
+    on_failure: always
+
 addons:
   apt:
     packages:
