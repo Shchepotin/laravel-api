@@ -154,7 +154,7 @@ class RunCommand extends Command
         }
 
         if ($this->option('vue')) {
-            if ($this->confirm('Some files will overwrite. Do you wish to continue?')) {
+            if ($this->confirm('Some files will overwrite. Do you wish to continue?', 'yes')) {
                 $this->createVueDirectories();
                 $this->createVueFiles();
 

@@ -23,7 +23,7 @@ before_install:
 
 script:
   - composer require schepotin/laravel-api:dev-master
-  - php artisan laravel-api:publish --api --vue
+  - php artisan laravel-api:publish --api --vue --no-interaction
   - php artisan migrate
   - npm install
   - npm run prod
