@@ -9,6 +9,7 @@ services:
   - mysql
 
 before_install:
+  - mysql -e 'CREATE DATABASE testing;'
   - sudo apt install node
   - sudo apt install npm
   - composer self-update
@@ -17,7 +18,7 @@ before_install:
   - composer install
   - cp .env.example .env
   - sed -i -- 's/DB_DATABASE=homestead/DB_DATABASE=testing/g' .env
-  - sed -i -- 's/DB_USERNAME=homestead/DB_USERNAME=root/g' .env
+  - sed -i -- 's/DB_USERNAME=homestead/DB_USERNAME=travis/g' .env
   - sed -i -- 's/DB_PASSWORD=secret/DB_PASSWORD=/g' .env
   - php artisan key:generate
 
