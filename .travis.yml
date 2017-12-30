@@ -21,9 +21,10 @@ before_install:
   - cd ./laravel
   - composer install
   - cp .env.example .env
-  - sed -i -- 's/DB_DATABASE=homestead/DB_DATABASE=testing/g' .env
-  - sed -i -- 's/DB_USERNAME=homestead/DB_USERNAME=travis/g' .env
-  - sed -i -- 's/DB_PASSWORD=secret/DB_PASSWORD=/g' .env
+  - sed -i -- "s/DB_DATABASE=homestead/DB_DATABASE=testing/g" .env
+  - sed -i -- "s/DB_USERNAME=homestead/DB_USERNAME=travis/g" .env
+  - sed -i -- "s/DB_PASSWORD=secret/DB_PASSWORD=/g" .env
+  - sed -i -- "s/'engine' => null/'engine' => 'InnoDB'/g" config/database.php
   - php artisan key:generate
 
 script:
