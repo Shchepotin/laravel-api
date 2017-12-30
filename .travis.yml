@@ -5,13 +5,17 @@ php:
   - 7.1
   - 7.2
 
-services:
-  - mysql
+addons:
+  apt:
+    packages:
+    - node
+    - npm
+    - mysql-server-5.7
+    - mysql-client-core-5.7
+    - mysql-client-5.7
 
 before_install:
   - mysql -e 'CREATE DATABASE testing;'
-  - sudo apt install node
-  - sudo apt install npm
   - composer self-update
   - composer create-project laravel/laravel
   - cd ./laravel
