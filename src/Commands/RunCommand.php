@@ -208,14 +208,14 @@ class RunCommand extends Command
                     $json->devDependencies = (object)[];
                 }
 
-                $json->dependencies->{"vue"} = "^2.4.4";
-                $json->dependencies->{"vuex"} = "^2.4.1";
-                $json->dependencies->{"vue-router"} = "^2.7.0";
-                $json->dependencies->{"vue-i18n"} = "^6.1.1";
-                $json->dependencies->{"vuex-router-sync"} = "^4.1.2";
-                $json->dependencies->{"vee-validate"} = "^2.0.0-rc.27";
+                $json->dependencies->{"vue"} = "^2.5.13";
+                $json->dependencies->{"vuex"} = "^3.0.1";
+                $json->dependencies->{"vue-router"} = "^3.0.1";
+                $json->dependencies->{"vue-i18n"} = "^7.3.3";
+                $json->dependencies->{"vuex-router-sync"} = "^5.0.0";
+                $json->dependencies->{"vee-validate"} = "^2.0.0";
                 $json->dependencies->{"vue-meta"} = "^1.4.0";
-                $json->dependencies->{"axios"} = "^0.15.3";
+                $json->dependencies->{"axios"} = "^0.17.1";
                 $json->dependencies->{"cxlt-vue2-toastr"} = "^1.0.12";
                 $json->dependencies->{"lodash"} = "^4.17.4";
                 $json->dependencies->{"jquery"} = "^3.1.1";

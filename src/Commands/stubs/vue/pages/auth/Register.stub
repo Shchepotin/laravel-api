@@ -136,7 +136,10 @@
             };
         },
         created() {
-            this.$validator.attach('email', 'unique');
+            this.$validator.attach({
+                name: 'email',
+                rules: 'unique',
+            });
         },
         beforeDestroy() {
             this.password = '';

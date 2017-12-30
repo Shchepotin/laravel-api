@@ -100,7 +100,10 @@
             };
         },
         created() {
-            this.$validator.attach('password', 'login');
+            this.$validator.attach({
+                name: 'password',
+                rules: 'login',
+            });
         },
         beforeDestroy() {
             this.password = '';
