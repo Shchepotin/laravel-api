@@ -24,7 +24,7 @@ before_install:
   - sed -i -- "s/DB_DATABASE=homestead/DB_DATABASE=testing/g" .env
   - sed -i -- "s/DB_USERNAME=homestead/DB_USERNAME=travis/g" .env
   - sed -i -- "s/DB_PASSWORD=secret/DB_PASSWORD=/g" .env
-  - sed -i -- "s/'engine' => null/'engine' => 'InnoDB'/g" config/database.php
+  - sed -i -- "s/table->string('email')/table->string('email', 40)/g" database/migrations/2014_10_12_000000_create_users_table.php
   - php artisan key:generate
 
 script:
