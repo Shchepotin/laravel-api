@@ -220,6 +220,7 @@ class RunCommand extends Command
                 $json->dependencies->{"lodash"} = "^4.17.4";
                 $json->dependencies->{"jquery"} = "^3.1.1";
                 $json->dependencies->{"bootstrap-sass"} = "^3.3.7";
+                $json->dependencies->{"schepotin-vuex-helpers"} = "^0.0.5";
 
                 $json->devDependencies->{"babel-preset-es2015"} = "^6.24.1";
                 $json->devDependencies->{"babel-preset-es2016"} = "^6.24.1";
@@ -310,6 +311,10 @@ class RunCommand extends Command
             mkdir(base_path("resources/assets/js/components"), 0755, true);
         }
 
+        if (!is_dir(base_path("resources/assets/js/utils"))) {
+            mkdir(base_path("resources/assets/js/utils"), 0755, true);
+        }
+
         if (!is_dir(base_path("resources/assets/js/pages"))) {
             mkdir(base_path("resources/assets/js/pages"), 0755, true);
         }
@@ -369,6 +374,13 @@ class RunCommand extends Command
             file_put_contents(
                 base_path('resources/assets/js/components/.gitkeep'),
                 file_get_contents(__DIR__ . "/stubs/vue/components/.gitkeep")
+            );
+        }
+
+        if (!file_exists(base_path('resources/assets/js/utils/.gitkeep'))) {
+            file_put_contents(
+                base_path('resources/assets/js/utils/.gitkeep'),
+                file_get_contents(__DIR__ . "/stubs/vue/utils/.gitkeep")
             );
         }
 
@@ -519,10 +531,10 @@ class RunCommand extends Command
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/store/mutation-types.js'))) {
+        if (!file_exists(base_path('resources/assets/js/modules/user/store/mutation-types.js'))) {
             file_put_contents(
-                base_path('resources/assets/js/store/mutation-types.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/mutation-types.stub")
+                base_path('resources/assets/js/store/modules/user/mutation-types.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/store/modules/user/mutation-types.stub")
             );
         }
 

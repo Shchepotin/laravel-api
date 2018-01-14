@@ -1,10 +1,7 @@
-/* ============
+/**
  * Vuex Store
- * ============
  *
- * The store of the application.
- *
- * http://vuex.vuejs.org/en/index.html
+ * The {@link http://vuex.vuejs.org/en/index.html | store } of the application.
  */
 
 import Vue from 'vue';

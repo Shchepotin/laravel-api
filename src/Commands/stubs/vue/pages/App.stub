@@ -31,7 +31,7 @@
                                 data-toggle="dropdown"
                                 role="button" aria-haspopup="true"
                                 aria-expanded="false">
-                                {{ $t(`translation.${currentLang}`) }}
+                                {{ $t(`translation.${userCurrentLang}`) }}
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
@@ -43,7 +43,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown" v-if="logged">
+                        <li class="dropdown" v-if="userLogged">
                             <a
                                 href="#"
                                 class="dropdown-toggle"
@@ -51,7 +51,7 @@
                                 role="button"
                                 aria-haspopup="true"
                                 aria-expanded="false">
-                                {{ name }}
+                                {{ userName }}
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
@@ -67,12 +67,12 @@
                                 </li>
                             </ul>
                         </li>
-                        <router-link :to="{ name: 'auth.login' }" tag="li" active-class="active" v-if="!logged">
+                        <router-link :to="{ name: 'auth.login' }" tag="li" active-class="active" v-if="!userLogged">
                             <a>
                                 {{ $t("translation.login") }}
                             </a>
                         </router-link>
-                        <router-link :to="{ name: 'auth.register' }" tag="li" active-class="active" v-if="!logged">
+                        <router-link :to="{ name: 'auth.register' }" tag="li" active-class="active" v-if="!userLogged">
                             <a>
                                 {{ $t("translation.register") }}
                             </a>
@@ -97,11 +97,11 @@
         methods: {
             lang(data) {
                 this.$i18n.locale = data;
-                this.currentLang = data;
+                this.userCurrentLang = data;
                 this.$validator.locale = data;
             },
             async logout() {
-                await this.$store.dispatch('logout');
+                await this.$store.dispatch('user/logout');
 
                 this.$router.push({
                     name: 'auth.login',

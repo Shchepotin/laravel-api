@@ -1,18 +1,13 @@
-/* ============
- * Main File
- * ============
- *
+/**
  * Will initialize the application.
  */
 
 import Vue from 'vue';
 
-/* ============
- * Plugins
- * ============
- *
+/**
  * Import and bootstrap the plugins.
  */
+
 import router from './router';
 import store from './store';
 import i18n from './plugins/lang';
@@ -21,16 +16,15 @@ import './plugins/validator';
 import './plugins/meta';
 import './bootstrap';
 
-/* ============
- * Main App
- * ============
+/**
+ * Main App.
  *
  * Last but not least, we import the main application.
  */
 
 import App from './pages/App.vue';
 
-store.dispatch('checkLogged');
+store.dispatch('user/checkLogged');
 
 Vue.config.productionTip = false;
 

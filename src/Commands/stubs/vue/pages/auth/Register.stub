@@ -21,7 +21,7 @@
                                         type="text"
                                         class="form-control"
                                         name="name"
-                                        v-model="name"
+                                        v-model="userName"
                                         v-validate="'required|max:255'"
                                         autofocus>
                                     <span v-show="errors.has('name')" class="help-block">
@@ -37,7 +37,7 @@
                                         type="email"
                                         class="form-control"
                                         name="email"
-                                        v-model="email"
+                                        v-model="userEmail"
                                         v-validate="'required|email|max:255'"
                                         @input="$validator.validate('email', 1)">
                                     <span v-show="errors.has('email')" class="help-block">
@@ -53,7 +53,7 @@
                                         type="password"
                                         class="form-control"
                                         name="password"
-                                        v-model="password"
+                                        v-model="userPassword"
                                         v-validate="'required|min:6'">
                                     <span v-show="errors.has('password')" class="help-block">
                                         {{ errors.first('password') }}
@@ -69,7 +69,7 @@
                                         type="password"
                                         class="form-control"
                                         name="passwordConfirmation"
-                                        v-model="passwordConfirmation"
+                                        v-model="userPasswordConfirmation"
                                         v-validate="'required|confirmed:password'">
                                     <span v-show="errors.has('passwordConfirmation')" class="help-block">
                                         {{ errors.first('passwordConfirmation') }}
@@ -112,11 +112,11 @@
                     this.progress = true;
 
                     try {
-                        await this.$store.dispatch('register', {
-                            name: this.name,
-                            email: this.email,
-                            password: this.password,
-                            password_confirmation: this.passwordConfirmation,
+                        await this.$store.dispatch('user/register', {
+                            name: this.userName,
+                            email: this.userEmail,
+                            password: this.userPassword,
+                            password_confirmation: this.userPasswordConfirmation,
                         });
 
                         this.$router.push({
@@ -142,8 +142,8 @@
             });
         },
         beforeDestroy() {
-            this.password = '';
-            this.passwordConfirmation = '';
+            this.userPassword = '';
+            this.userPasswordConfirmation = '';
         },
     };
 </script>

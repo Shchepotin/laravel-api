@@ -1,5 +1,5 @@
 import user from '../../../api/user';
-import * as types from '../../mutation-types';
+import * as types from './mutation-types';
 
 export const login = async ({ dispatch, commit }, payload) => {
     const json = await user.login(payload);

@@ -20,7 +20,7 @@
                                         id="email"
                                         type="email"
                                         class="form-control"
-                                        name="email" v-model="email"
+                                        name="email" v-model="userEmail"
                                         v-validate="'required|email|max:255'"
                                         autofocus>
                                     <span v-show="errors.has('email')" class="help-block">
@@ -36,7 +36,7 @@
                                         type="password"
                                         class="form-control"
                                         name="password"
-                                        v-model="password"
+                                        v-model="userPassword"
                                         v-validate="'required|min:6'"
                                         @input="$validator.validate('password', 1)">
                                     <span v-show="errors.has('password')" class="help-block">
@@ -80,9 +80,9 @@
                     this.progress = true;
 
                     try {
-                        await this.$store.dispatch('login', {
-                            email: this.email,
-                            password: this.password,
+                        await this.$store.dispatch('user/login', {
+                            email: this.userEmail,
+                            password: this.userPassword,
                         });
 
                         this.$router.push(this.$route.query.redirect || { name: 'home' });
@@ -106,7 +106,7 @@
             });
         },
         beforeDestroy() {
-            this.password = '';
+            this.userPassword = '';
         },
     };
 </script>

@@ -1,49 +1,46 @@
-import * as types from '../store/mutation-types';
+import { mapTwoWayState } from 'schepotin-vuex-helpers';
 
 export default {
     computed: {
-        logged() {
-            return this.$store.getters.logged;
-        },
-        name: {
-            get() {
-                return this.$store.getters.name;
-            },
-            set(value) {
-                this.$store.commit(types.NAME, value);
-            },
-        },
-        email: {
-            get() {
-                return this.$store.getters.email;
-            },
-            set(value) {
-                this.$store.commit(types.EMAIL, value);
-            },
-        },
-        password: {
-            get() {
-                return this.$store.getters.password;
-            },
-            set(value) {
-                this.$store.commit(types.PASSWORD, value);
-            },
-        },
-        passwordConfirmation: {
-            get() {
-                return this.$store.getters.passwordConfirmation;
-            },
-            set(value) {
-                this.$store.commit(types.PASSWORD_CONFIRMATION, value);
-            },
-        },
-        currentLang: {
-            get() {
-                return this.$store.getters.currentLang;
-            },
-            set(value) {
-                this.$store.commit(types.CURRENT_LANG, value);
-            },
-        },
+        /**
+         * Generates two way {@link https://vuejs.org/v2/guide/computed.html#Computed-Setter | computed properties}
+         *
+         * @example
+         *
+         * ```
+         * ...mapTwoWayState({
+         *     namespace: 'user',
+         *     prefix: true,
+         * }, [
+         *     'name',
+         * ]),
+         * ```
+         *
+         * generates:
+         *
+         * @example
+         *
+         * ```
+         * userName: {
+         *     get() {
+         *         return this.$store.getters['user/name'];
+         *     },
+         *     set(value) {
+         *         this.$store.commit(`user/NAME`, value);
+         *     },
+         * },
+         * ```
+         */
+        ...mapTwoWayState({
+            namespace: 'user',
+            prefix: true,
+        }, [
+            'logged',
+            'name',
+            'email',
+            'password',
+            'passwordConfirmation',
+            'currentLang',
+        ]),
     },
 };
