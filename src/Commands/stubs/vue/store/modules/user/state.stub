@@ -4,7 +4,7 @@ export default {
     email: null,
     password: null,
     passwordConfirmation: null,
-    logged: null,
+    logged: false,
     token: null,
     currentLang: localStorage.getItem('locale') === null ? 'en' : localStorage.getItem('locale'),
     createdAt: null,

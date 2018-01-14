@@ -142,8 +142,8 @@
             });
         },
         beforeDestroy() {
-            this.userPassword = '';
-            this.userPasswordConfirmation = '';
+            this.userPassword = null;
+            this.userPasswordConfirmation = null;
         },
     };
 </script>

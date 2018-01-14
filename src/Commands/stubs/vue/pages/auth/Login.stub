@@ -106,7 +106,7 @@
             });
         },
         beforeDestroy() {
-            this.userPassword = '';
+            this.userPassword = null;
         },
     };
 </script>
