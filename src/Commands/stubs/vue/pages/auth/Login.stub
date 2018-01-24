@@ -1,57 +1,61 @@
 <template>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            {{ $t("translation.login") }}
-                        </h3>
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        {{ $t("translation.login") }}
                     </div>
-                    <div class="panel-body">
-                        <div v-if="progress" class="loading"></div>
-                        <div class="col-md-12">
-                            <form class="form-horizontal" @submit.prevent="auth">
-                                <div :class="{ 'form-group': true, 'has-error': errors.has('email') }">
-                                    <label for="email" class="control-label">
-                                        {{ $t("translation.email") }}
-                                    </label>
-                                    <input
-                                        id="email"
-                                        type="email"
-                                        class="form-control"
-                                        name="email" v-model="userEmail"
-                                        v-validate="'required|email|max:255'"
-                                        autofocus>
-                                    <span v-show="errors.has('email')" class="help-block">
-                                        {{ errors.first('email') }}
-                                    </span>
-                                </div>
-                                <div :class="{ 'form-group': true, 'has-error': errors.has('password') }">
-                                    <label for="password" class="control-label">
-                                        {{ $t("translation.password") }}
-                                    </label>
-                                    <input
-                                        id="password"
-                                        type="password"
-                                        class="form-control"
-                                        name="password"
-                                        v-model="userPassword"
-                                        v-validate="'required|min:6'"
-                                        @input="$validator.validate('password', 1)">
-                                    <span v-show="errors.has('password')" class="help-block">
-                                        {{ errors.first('password') }}
-                                    </span>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="login-btn btn btn-success" :disabled="this.progress">
+                    <div class="card-body">
+                        <div class="row">
+                            <div v-if="progress" class="loading"></div>
+                            <div class="col-12">
+                                <form @submit.prevent="auth">
+                                    <div class="form-group">
+                                        <label for="email">
+                                            {{ $t("translation.email") }}
+                                        </label>
+                                        <input
+                                            id="email"
+                                            type="email"
+                                            class="form-control"
+                                            :class="{ 'is-invalid': errors.has('email') }"
+                                            name="email"
+                                            v-model="userEmail"
+                                            v-validate="'required|email|max:255'"
+                                            autofocus>
+                                        <div v-show="errors.has('email')" class="invalid-feedback">
+                                            {{ errors.first('email') }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">
+                                            {{ $t("translation.password") }}
+                                        </label>
+                                        <input
+                                            id="password"
+                                            type="password"
+                                            class="form-control"
+                                            :class="{ 'is-invalid': errors.has('password') }"
+                                            name="password"
+                                            v-model="userPassword"
+                                            v-validate="'required|min:6'"
+                                            @input="$validator.validate('password', 1)">
+                                        <div v-show="errors.has('password')" class="invalid-feedback">
+                                            {{ errors.first('password') }}
+                                        </div>
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        class="btn btn-success"
+                                        :disabled="this.progress">
                                         {{ $t("translation.login") }}
                                     </button>
                                     <router-link :to="{ name: 'auth.password.email' }" class="btn btn-link">
                                         {{ $t("translation.forgotPassword") }}
                                     </router-link>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

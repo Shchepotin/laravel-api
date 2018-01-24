@@ -17,10 +17,10 @@ export const login = async ({ dispatch, commit }, payload) => {
 
 export const logout = async ({ commit }) => {
     commit(types.ID, null);
-    commit(types.NAME, '');
-    commit(types.EMAIL, '');
-    commit(types.CREATED_AT, '');
-    commit(types.UPDATED_AT, '');
+    commit(types.NAME, null);
+    commit(types.EMAIL, null);
+    commit(types.CREATED_AT, null);
+    commit(types.UPDATED_AT, null);
     commit(types.LOGOUT);
 };
 

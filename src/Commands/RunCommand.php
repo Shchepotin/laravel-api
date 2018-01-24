@@ -160,8 +160,7 @@ class RunCommand extends Command
 
                 file_put_contents(
                     base_path("resources/assets/sass/app.scss"),
-                    file_get_contents(__DIR__ . "/stubs/vue/sass/style.stub"),
-                    FILE_APPEND
+                    file_get_contents(__DIR__ . "/stubs/vue/sass/style.stub")
                 );
 
                 if (!file_exists(app_path("Http/Controllers/SpaController.php"))) {
@@ -219,7 +218,8 @@ class RunCommand extends Command
                 $json->dependencies->{"cxlt-vue2-toastr"} = "^1.0.12";
                 $json->dependencies->{"lodash"} = "^4.17.4";
                 $json->dependencies->{"jquery"} = "^3.1.1";
-                $json->dependencies->{"bootstrap-sass"} = "^3.3.7";
+                $json->dependencies->{"bootstrap"} = "^4.0.0";
+                $json->dependencies->{"popper.js"} = "^1.12.9";
                 $json->dependencies->{"schepotin-vuex-helpers"} = "^0.0.5";
 
                 $json->devDependencies->{"babel-preset-es2015"} = "^6.24.1";
