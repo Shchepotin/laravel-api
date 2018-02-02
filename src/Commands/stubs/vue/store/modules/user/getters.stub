@@ -19,9 +19,11 @@ export default {
      * @example
      *
      * ```
-     * id: state => state.id,
-     * name: state => state.name,
-     * email: state => state.email,
+     * {
+     *     id: state => state.id,
+     *     name: state => state.name,
+     *     email: state => state.email,
+     * }
      * ```
      */
     ...mapGettersFromStates({

@@ -69,9 +69,9 @@ export const getUserCurrent = async ({ commit }) => {
 };
 
 export const checkLogged = async ({ dispatch, commit }) => {
-    const token = window.localStorage.getItem('token');
+    const token = window.Cookies.get('token');
 
-    if (token !== null) {
+    if (token !== undefined) {
         commit(types.LOGIN, {
             token,
         });

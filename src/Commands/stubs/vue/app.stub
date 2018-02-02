@@ -8,13 +8,13 @@ import Vue from 'vue';
  * Import and bootstrap the plugins.
  */
 
+import './bootstrap';
 import router from './router';
 import store from './store';
 import i18n from './plugins/lang';
 import './plugins/toastr';
 import './plugins/validator';
 import './plugins/meta';
-import './bootstrap';
 
 /**
  * Main App.

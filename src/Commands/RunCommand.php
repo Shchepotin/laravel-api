@@ -220,6 +220,7 @@ class RunCommand extends Command
                 $json->dependencies->{"jquery"} = "^3.1.1";
                 $json->dependencies->{"bootstrap"} = "^4.0.0";
                 $json->dependencies->{"popper.js"} = "^1.12.9";
+                $json->dependencies->{"js-cookie"} = "^2.2.0";
                 $json->dependencies->{"schepotin-vuex-helpers"} = "^0.0.5";
 
                 $json->devDependencies->{"babel-preset-es2015"} = "^6.24.1";
