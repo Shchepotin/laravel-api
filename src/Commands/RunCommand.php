@@ -242,6 +242,8 @@ class RunCommand extends Command
                 unset($json->devDependencies->{"axios"});
                 unset($json->devDependencies->{"jquery"});
                 unset($json->devDependencies->{"bootstrap-sass"});
+                unset($json->devDependencies->{"bootstrap"});
+                unset($json->devDependencies->{"popper.js"});
                 unset($json->devDependencies->{"lodash"});
 
                 file_put_contents(
