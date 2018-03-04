@@ -2,49 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import { sync } from 'vuex-router-sync';
 
-import LoadingComponent from '../pages/Loading.vue';
-import ErrorComponent from '../pages/Error.vue';
 import store from '../store';
-
-const options = {
-    loading: LoadingComponent,
-    error: ErrorComponent,
-};
-
-const Home = () => ({
-    ...options,
-    component: import('../pages/Home.vue'),
-});
-
-const Profile = () => ({
-    ...options,
-    component: import('../pages/auth/Profile.vue'),
-});
-
-const Login = () => ({
-    ...options,
-    component: import('../pages/auth/Login.vue'),
-});
-
-const Register = () => ({
-    ...options,
-    component: import('../pages/auth/Register.vue'),
-});
-
-const PasswordEmail = () => ({
-    ...options,
-    component: import('../pages/auth/PasswordEmail.vue'),
-});
-
-const ResetPassword = () => ({
-    ...options,
-    component: import('../pages/auth/ResetPassword.vue'),
-});
-
-const NotFound = () => ({
-    ...options,
-    component: import('../pages/NotFound.vue'),
-});
 
 Vue.use(VueRouter);
 
@@ -52,12 +10,12 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        component: Home,
+        component: () => import('../pages/Home.vue'),
     },
     {
         path: '/profile',
         name: 'auth.profile',
-        component: Profile,
+        component: () => import('../pages/auth/Profile.vue'),
         meta: {
             auth: true,
         },
@@ -65,7 +23,7 @@ const routes = [
     {
         path: '/login',
         name: 'auth.login',
-        component: Login,
+        component: () => import('../pages/auth/Login.vue'),
         meta: {
             guest: true,
         },
@@ -73,7 +31,7 @@ const routes = [
     {
         path: '/register',
         name: 'auth.register',
-        component: Register,
+        component: () => import('../pages/auth/Register.vue'),
         meta: {
             guest: true,
         },
@@ -81,7 +39,7 @@ const routes = [
     {
         path: '/password/reset',
         name: 'auth.password.email',
-        component: PasswordEmail,
+        component: () => import('../pages/auth/PasswordEmail.vue'),
         meta: {
             guest: true,
         },
@@ -89,7 +47,7 @@ const routes = [
     {
         path: '/password/reset/:token',
         name: 'auth.reset.password',
-        component: ResetPassword,
+        component: () => import('../pages/auth/ResetPassword.vue'),
         meta: {
             guest: true,
         },
@@ -100,7 +58,7 @@ const routes = [
      */
     {
         path: '*',
-        component: NotFound,
+        component: () => import('../pages/NotFound.vue'),
     },
 ];
 
@@ -108,6 +66,7 @@ const router = new VueRouter({
     routes,
     mode: 'history',
     saveScrollPosition: false,
+    linkActiveClass: 'active',
     scrollBehavior() {
         return {
             x: 0,

@@ -17,13 +17,14 @@
                                         </label>
                                         <input
                                             id="email"
+                                            v-model="userEmail"
                                             type="email"
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('email') }"
                                             name="email"
-                                            v-model="userEmail"
                                             v-validate="'required|email|max:255'"
-                                            autofocus>
+                                            autofocus
+                                        >
                                         <div v-show="errors.has('email')" class="invalid-feedback">
                                             {{ errors.first('email') }}
                                         </div>
@@ -34,13 +35,14 @@
                                         </label>
                                         <input
                                             id="password"
+                                            v-model="userPassword"
                                             type="password"
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('password') }"
                                             name="password"
-                                            v-model="userPassword"
                                             v-validate="'required|min:6'"
-                                            @input="$validator.validate('password', 1)">
+                                            @input="$validator.validate('password', 1)"
+                                        >
                                         <div v-show="errors.has('password')" class="invalid-feedback">
                                             {{ errors.first('password') }}
                                         </div>
@@ -48,7 +50,8 @@
                                     <button
                                         type="submit"
                                         class="btn btn-success"
-                                        :disabled="this.progress">
+                                        :disabled="this.progress"
+                                    >
                                         {{ $t("translation.login") }}
                                     </button>
                                     <router-link :to="{ name: 'auth.password.email' }" class="btn btn-link">
@@ -76,6 +79,20 @@
                 title: this.$t('translation.login'),
             };
         },
+        data() {
+            return {
+                progress: false,
+            };
+        },
+        created() {
+            this.$validator.attach({
+                name: 'password',
+                rules: 'login',
+            });
+        },
+        beforeDestroy() {
+            this.userPassword = null;
+        },
         methods: {
             async auth() {
                 const valid = await this.$validator.validateAll();
@@ -97,20 +114,6 @@
                     }
                 }
             },
-        },
-        data() {
-            return {
-                progress: false,
-            };
-        },
-        created() {
-            this.$validator.attach({
-                name: 'password',
-                rules: 'login',
-            });
-        },
-        beforeDestroy() {
-            this.userPassword = null;
         },
     };
 </script>

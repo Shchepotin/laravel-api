@@ -6,31 +6,8 @@ export default {
      * Generates {@link https://vuex.vuejs.org/en/mutations.html | mutations} from
      * {@link https://vuex.vuejs.org/en/mutations.html#using-constants-for-mutation-types | mutation types}
      *
-     * @example
-     *
-     * ```
-     * ...mapMutationsFromTypes({
-     *     types,
-     * }),
-     * ```
-     *
-     * generates:
-     *
-     * @example
-     *
-     * ```
-     * {
-     *     [types.ID](state, payload) {
-     *         state.id = payload;
-     *     },
-     *     [types.NAME](state, payload) {
-     *         state.name = payload;
-     *     },
-     *     [types.EMAIL](state, payload) {
-     *         state.email = payload;
-     *     },
-     * }
-     * ```
+     * Documentation
+     * {@link https://www.npmjs.com/package/schepotin-vuex-helpers#mapmutationsfromtypes | mapMutationsFromTypes}
      */
     ...mapMutationsFromTypes({
         types,
@@ -51,7 +28,7 @@ export default {
         window.Cookies.remove('token');
         window.axios.defaults.headers.common.Authorization = '';
 
-        state.token = '';
+        state.token = null;
         state.logged = false;
     },
     [types.CURRENT_LANG](state, payload) {

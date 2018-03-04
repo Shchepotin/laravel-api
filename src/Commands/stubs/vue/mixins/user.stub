@@ -5,31 +5,7 @@ export default {
         /**
          * Generates two way {@link https://vuejs.org/v2/guide/computed.html#Computed-Setter | computed properties}
          *
-         * @example
-         *
-         * ```
-         * ...mapTwoWayState({
-         *     namespace: 'user',
-         *     prefix: true,
-         * }, [
-         *     'name',
-         * ]),
-         * ```
-         *
-         * generates:
-         *
-         * @example
-         *
-         * ```
-         * userName: {
-         *     get() {
-         *         return this.$store.getters['user/name'];
-         *     },
-         *     set(value) {
-         *         this.$store.commit(`user/NAME`, value);
-         *     },
-         * },
-         * ```
+         * Documentation {@link https://www.npmjs.com/package/schepotin-vuex-helpers#maptwowaystate | mapTwoWayState}
          */
         ...mapTwoWayState({
             namespace: 'user',

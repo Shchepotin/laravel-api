@@ -6,25 +6,8 @@ export default {
      * Generates {@link https://vuex.vuejs.org/en/getters.html | getters} from
      * {@link https://vuex.vuejs.org/en/state.html | states}
      *
-     * @example
-     *
-     * ```
-     * ...mapGettersFromStates({
-     *     states,
-     * }),
-     * ```
-     *
-     * generates:
-     *
-     * @example
-     *
-     * ```
-     * {
-     *     id: state => state.id,
-     *     name: state => state.name,
-     *     email: state => state.email,
-     * }
-     * ```
+     * Documentation
+     * {@link https://www.npmjs.com/package/schepotin-vuex-helpers#mapgettersfromstates | mapGettersFromStates}
      */
     ...mapGettersFromStates({
         states,

@@ -10,7 +10,7 @@ export const login = async ({ dispatch, commit }, payload) => {
         });
 
         await dispatch('getUserCurrent');
-    } else if (json.status === 0) {
+    } else {
         throw json;
     }
 };
@@ -33,7 +33,7 @@ export const register = async ({ dispatch, commit }, payload) => {
         });
 
         await dispatch('getUserCurrent');
-    } else if (json.status === 0) {
+    } else {
         throw json;
     }
 };
@@ -41,7 +41,7 @@ export const register = async ({ dispatch, commit }, payload) => {
 export const passwordEmail = async (context, payload) => {
     const json = await user.passwordEmail(payload);
 
-    if (json.status === 0) {
+    if (json.status !== 1) {
         throw json;
     }
 };
@@ -49,7 +49,7 @@ export const passwordEmail = async (context, payload) => {
 export const resetPassword = async (context, payload) => {
     const json = await user.resetPassword(payload);
 
-    if (json.status === 0) {
+    if (json.status !== 1) {
         throw json;
     }
 };
@@ -63,7 +63,7 @@ export const getUserCurrent = async ({ commit }) => {
         commit(types.EMAIL, json.data.email);
         commit(types.CREATED_AT, json.data.created_at);
         commit(types.UPDATED_AT, json.data.updated_at);
-    } else if (json.status === 0) {
+    } else {
         throw json;
     }
 };

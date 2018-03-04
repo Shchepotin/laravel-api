@@ -394,20 +394,6 @@ class RunCommand extends Command
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/pages/Error.vue'))) {
-            file_put_contents(
-                base_path('resources/assets/js/pages/Error.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/pages/Error.stub")
-            );
-        }
-
-        if (!file_exists(base_path('resources/assets/js/pages/Loading.vue'))) {
-            file_put_contents(
-                base_path('resources/assets/js/pages/Loading.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/pages/Loading.stub")
-            );
-        }
-
         if (!file_exists(base_path('resources/assets/js/pages/Home.vue'))) {
             file_put_contents(
                 base_path('resources/assets/js/pages/Home.vue'),

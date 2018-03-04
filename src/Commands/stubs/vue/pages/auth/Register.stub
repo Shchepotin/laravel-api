@@ -17,13 +17,14 @@
                                         </label>
                                         <input
                                             id="name"
+                                            v-model="userName"
                                             type="text"
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('name') }"
                                             name="name"
-                                            v-model="userName"
                                             v-validate="'required|max:255'"
-                                            autofocus>
+                                            autofocus
+                                        >
                                         <div v-show="errors.has('name')" class="invalid-feedback">
                                             {{ errors.first('name') }}
                                         </div>
@@ -34,13 +35,14 @@
                                         </label>
                                         <input
                                             id="email"
+                                            v-model="userEmail"
                                             type="email"
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('email') }"
                                             name="email"
-                                            v-model="userEmail"
                                             v-validate="'required|email|max:255'"
-                                            @input="$validator.validate('email', 1)">
+                                            @input="$validator.validate('email', 1)"
+                                        >
                                         <div v-show="errors.has('email')" class="invalid-feedback">
                                             {{ errors.first('email') }}
                                         </div>
@@ -51,12 +53,13 @@
                                         </label>
                                         <input
                                             id="password"
+                                            v-model="userPassword"
                                             type="password"
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('password') }"
                                             name="password"
-                                            v-model="userPassword"
-                                            v-validate="'required|min:6'">
+                                            v-validate="'required|min:6'"
+                                        >
                                         <div v-show="errors.has('password')" class="invalid-feedback">
                                             {{ errors.first('password') }}
                                         </div>
@@ -67,12 +70,13 @@
                                         </label>
                                         <input
                                             id="password-confirmation"
+                                            v-model="userPasswordConfirmation"
                                             type="password"
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('passwordConfirmation') }"
                                             name="passwordConfirmation"
-                                            v-model="userPasswordConfirmation"
-                                            v-validate="'required|confirmed:password'">
+                                            v-validate="'required|confirmed:password'"
+                                        >
                                         <div v-show="errors.has('passwordConfirmation')" class="invalid-feedback">
                                             {{ errors.first('passwordConfirmation') }}
                                         </div>
@@ -80,7 +84,8 @@
                                     <button
                                         type="submit"
                                         class="login-btn btn btn-success"
-                                        :disabled="this.progress">
+                                        :disabled="this.progress"
+                                    >
                                         {{ $t("translation.register") }}
                                     </button>
                                 </form>
@@ -104,6 +109,21 @@
             return {
                 title: this.$t('translation.register'),
             };
+        },
+        data() {
+            return {
+                progress: false,
+            };
+        },
+        created() {
+            this.$validator.attach({
+                name: 'email',
+                rules: 'unique',
+            });
+        },
+        beforeDestroy() {
+            this.userPassword = null;
+            this.userPasswordConfirmation = null;
         },
         methods: {
             async register() {
@@ -130,21 +150,6 @@
                     }
                 }
             },
-        },
-        data() {
-            return {
-                progress: false,
-            };
-        },
-        created() {
-            this.$validator.attach({
-                name: 'email',
-                rules: 'unique',
-            });
-        },
-        beforeDestroy() {
-            this.userPassword = null;
-            this.userPasswordConfirmation = null;
         },
     };
 </script>
