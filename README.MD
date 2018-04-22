@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Shchepotin/laravel-api.svg?branch=master)](https://travis-ci.org/Schepotin/laravel-api)
+[![Build Status](https://travis-ci.org/Shchepotin/laravel-api.svg?branch=master)](https://travis-ci.org/Shchepotin/laravel-api)
 
 # Laravel API
 
