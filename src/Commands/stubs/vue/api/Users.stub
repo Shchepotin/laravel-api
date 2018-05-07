@@ -1,0 +1,13 @@
+import BaseProxy from './BaseProxy';
+
+class Users extends BaseProxy {
+    constructor(parameters = {}) {
+        super('/api/v1/users', parameters);
+    }
+
+    async getCurrent() {
+        return super.submit('get', '/current');
+    }
+}
+
+export default Users;

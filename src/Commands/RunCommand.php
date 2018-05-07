@@ -137,6 +137,11 @@ class RunCommand extends Command
                 );
             }
 
+            file_put_contents(
+                app_path("Exceptions/Handler.php"),
+                $this->compileHandlerControllerStub()
+            );
+
             if (!file_exists(database_path("migrations/2017_07_18_000000_users_add_api_token_column.php"))) {
                 file_put_contents(
                     database_path("migrations/2017_07_18_000000_users_add_api_token_column.php"),
@@ -306,6 +311,10 @@ class RunCommand extends Command
             mkdir(base_path("resources/assets/js/api"), 0755, true);
         }
 
+        if (!is_dir(base_path("resources/assets/js/exceptions"))) {
+            mkdir(base_path("resources/assets/js/exceptions"), 0755, true);
+        }
+
         if (!is_dir(base_path("resources/assets/js/plugins"))) {
             mkdir(base_path("resources/assets/js/plugins"), 0755, true);
         }
@@ -366,10 +375,24 @@ class RunCommand extends Command
      */
     protected function createVueFiles()
     {
-        if (!file_exists(base_path('resources/assets/js/api/user.js'))) {
+        if (!file_exists(base_path('resources/assets/js/api/BaseProxy.js'))) {
             file_put_contents(
-                base_path('resources/assets/js/api/user.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/api/user.stub")
+                base_path('resources/assets/js/api/BaseProxy.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/api/BaseProxy.stub")
+            );
+        }
+
+        if (!file_exists(base_path('resources/assets/js/api/Auth.js'))) {
+            file_put_contents(
+                base_path('resources/assets/js/api/Auth.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/api/Auth.stub")
+            );
+        }
+
+        if (!file_exists(base_path('resources/assets/js/api/Users.js'))) {
+            file_put_contents(
+                base_path('resources/assets/js/api/Users.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/api/Users.stub")
             );
         }
 
@@ -384,6 +407,13 @@ class RunCommand extends Command
             file_put_contents(
                 base_path('resources/assets/js/utils/.gitkeep'),
                 file_get_contents(__DIR__ . "/stubs/vue/utils/.gitkeep")
+            );
+        }
+
+        if (!file_exists(base_path('resources/assets/js/exceptions/ApiError.js'))) {
+            file_put_contents(
+                base_path('resources/assets/js/exceptions/ApiError.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/exceptions/ApiError.stub")
             );
         }
 
@@ -569,6 +599,15 @@ class RunCommand extends Command
             "{{namespace}}",
             $this->getAppNamespace(),
             file_get_contents(__DIR__ . "/stubs/Controllers/UserController.stub")
+        );
+    }
+
+    protected function compileHandlerControllerStub()
+    {
+        return str_replace(
+            "{{namespace}}",
+            $this->getAppNamespace(),
+            file_get_contents(__DIR__ . "/stubs/Exceptions/Handler.stub")
         );
     }
 

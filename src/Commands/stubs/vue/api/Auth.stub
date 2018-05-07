@@ -1,0 +1,25 @@
+import BaseProxy from './BaseProxy';
+
+class Auth extends BaseProxy {
+    constructor(parameters = {}) {
+        super('/api/v1', parameters);
+    }
+
+    async login(params = {}) {
+        return super.submit('post', '/login', params);
+    }
+
+    async register(params = {}) {
+        return super.submit('post', '/register', params);
+    }
+
+    async passwordEmail(params = {}) {
+        return super.submit('post', '/password/email', params);
+    }
+
+    async resetPassword(params = {}) {
+        return super.submit('post', '/reset/password', params);
+    }
+}
+
+export default Auth;

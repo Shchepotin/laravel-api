@@ -1,18 +1,26 @@
-import user from '../../../api/user';
+import Users from '../../../api/Users';
+import Auth from '../../../api/Auth';
 import * as types from './mutation-types';
 
+
+export const register = async ({ dispatch, commit }, payload) => {
+    const json = await new Auth().register(payload);
+
+    commit(types.LOGIN, {
+        token: json.token,
+    });
+
+    await dispatch('getUserCurrent');
+};
+
 export const login = async ({ dispatch, commit }, payload) => {
-    const json = await user.login(payload);
+    const json = await new Auth().login(payload);
 
-    if (json.status === 1) {
-        commit(types.LOGIN, {
-            token: json.token,
-        });
+    commit(types.LOGIN, {
+        token: json.token,
+    });
 
-        await dispatch('getUserCurrent');
-    } else {
-        throw json;
-    }
+    await dispatch('getUserCurrent');
 };
 
 export const logout = async ({ commit }) => {
@@ -24,48 +32,18 @@ export const logout = async ({ commit }) => {
     commit(types.LOGOUT);
 };
 
-export const register = async ({ dispatch, commit }, payload) => {
-    const json = await user.register(payload);
+export const passwordEmail = async (context, payload) => new Auth().passwordEmail(payload);
 
-    if (json.status === 1) {
-        commit(types.LOGIN, {
-            token: json.token,
-        });
-
-        await dispatch('getUserCurrent');
-    } else {
-        throw json;
-    }
-};
-
-export const passwordEmail = async (context, payload) => {
-    const json = await user.passwordEmail(payload);
-
-    if (json.status !== 1) {
-        throw json;
-    }
-};
-
-export const resetPassword = async (context, payload) => {
-    const json = await user.resetPassword(payload);
-
-    if (json.status !== 1) {
-        throw json;
-    }
-};
+export const resetPassword = async (context, payload) => new Auth().resetPassword(payload);
 
 export const getUserCurrent = async ({ commit }) => {
-    const json = await user.getUserCurrent();
+    const json = await new Users().getCurrent();
 
-    if (json.status === 1) {
-        commit(types.ID, json.data.id);
-        commit(types.NAME, json.data.name);
-        commit(types.EMAIL, json.data.email);
-        commit(types.CREATED_AT, json.data.created_at);
-        commit(types.UPDATED_AT, json.data.updated_at);
-    } else {
-        throw json;
-    }
+    commit(types.ID, json.data.id);
+    commit(types.NAME, json.data.name);
+    commit(types.EMAIL, json.data.email);
+    commit(types.CREATED_AT, json.data.created_at);
+    commit(types.UPDATED_AT, json.data.updated_at);
 };
 
 export const checkLogged = async ({ dispatch, commit }) => {
