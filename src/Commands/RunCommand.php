@@ -137,11 +137,6 @@ class RunCommand extends Command
                 );
             }
 
-            file_put_contents(
-                app_path("Exceptions/Handler.php"),
-                $this->compileHandlerControllerStub()
-            );
-
             if (!file_exists(database_path("migrations/2017_07_18_000000_users_add_api_token_column.php"))) {
                 file_put_contents(
                     database_path("migrations/2017_07_18_000000_users_add_api_token_column.php"),
@@ -599,15 +594,6 @@ class RunCommand extends Command
             "{{namespace}}",
             $this->getAppNamespace(),
             file_get_contents(__DIR__ . "/stubs/Controllers/UserController.stub")
-        );
-    }
-
-    protected function compileHandlerControllerStub()
-    {
-        return str_replace(
-            "{{namespace}}",
-            $this->getAppNamespace(),
-            file_get_contents(__DIR__ . "/stubs/Exceptions/Handler.stub")
         );
     }
 
