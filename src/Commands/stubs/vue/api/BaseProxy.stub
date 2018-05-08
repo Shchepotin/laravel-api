@@ -25,24 +25,15 @@ class BaseProxy {
                 return response.data;
             }
         } catch (e) {
-            if (e.response.status === 500) {
+            if (
+                e.response.status === 500
+                || e.response.status === 401
+                || e.response.status === 403
+                || e.response.status === 404
+                || e.response.status === 422
+            ) {
                 throw new ApiError({
-                    status: 500,
-                    error: e.response.data,
-                });
-            } else if (e.response.status === 403) {
-                throw new ApiError({
-                    status: 403,
-                    error: e.response.data,
-                });
-            } else if (e.response.status === 404) {
-                throw new ApiError({
-                    status: 404,
-                    error: e.response.data,
-                });
-            } else if (e.response.status === 422) {
-                throw new ApiError({
-                    status: 422,
+                    status: e.response.status,
                     error: e.response.data,
                 });
             }
