@@ -45,13 +45,15 @@ class RunCommand extends Command
      */
     public function handle()
     {
+        $user_model = new \ReflectionClass(config('auth.providers.users.model'));
+        
         if ($this->option('api')) {
             $this->createDirectories();
 
             /*
              * Add value 'api_token' to arrays $fillable and $hidden
              */
-            $user_model_code = file_get_contents(app_path("User.php"));
+            $user_model_code = file_get_contents($user_model->getFileName());
             $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
 
             try {
@@ -80,7 +82,7 @@ class RunCommand extends Command
                     }
                 }
 
-                file_put_contents(app_path("User.php"), $prettyPrinter->prettyPrintFile($stmts));
+                file_put_contents($user_model->getFileName(), $prettyPrinter->prettyPrintFile($stmts));
             } catch (Error $e) {
                 echo "Parse Error: ", $e->getMessage();
             }
