@@ -6,19 +6,19 @@ class Auth extends BaseProxy {
     }
 
     async login(params = {}) {
-        return super.submit('post', '/login', params);
+        return this.submit('post', '/login', params);
     }
 
     async register(params = {}) {
-        return super.submit('post', '/register', params);
+        return this.submit('post', '/register', params);
     }
 
     async passwordEmail(params = {}) {
-        return super.submit('post', '/password/email', params);
+        return this.submit('post', '/password/email', params);
     }
 
     async resetPassword(params = {}) {
-        return super.submit('post', '/reset/password', params);
+        return this.submit('post', '/reset/password', params);
     }
 }
 

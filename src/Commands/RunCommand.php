@@ -132,9 +132,9 @@ class RunCommand extends Command
                 echo "Parse Error: ", $e->getMessage();
             }
 
-            if (!file_exists(app_path("Http/Controllers/Api/V1/UserController.php"))) {
+            if (!file_exists(app_path("Http/Controllers/Api/V1/AuthController.php"))) {
                 file_put_contents(
-                    app_path("Http/Controllers/Api/V1/UserController.php"),
+                    app_path("Http/Controllers/Api/V1/AuthController.php"),
                     $this->compileControllerStub()
                 );
             }
@@ -386,10 +386,10 @@ class RunCommand extends Command
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/api/Users.js'))) {
+        if (!file_exists(base_path('resources/assets/js/api/User.js'))) {
             file_put_contents(
-                base_path('resources/assets/js/api/Users.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/api/Users.stub")
+                base_path('resources/assets/js/api/User.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/api/User.stub")
             );
         }
 
@@ -595,7 +595,7 @@ class RunCommand extends Command
         return str_replace(
             "{{namespace}}",
             $this->getAppNamespace(),
-            file_get_contents(__DIR__ . "/stubs/Controllers/UserController.stub")
+            file_get_contents(__DIR__ . "/stubs/Controllers/AuthController.stub")
         );
     }
 

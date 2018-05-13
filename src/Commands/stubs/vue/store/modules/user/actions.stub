@@ -1,7 +1,6 @@
-import Users from '../../../api/Users';
+import User from '../../../api/User';
 import Auth from '../../../api/Auth';
 import * as types from './mutation-types';
-
 
 export const register = async ({ dispatch, commit }, payload) => {
     const json = await new Auth().register(payload);
@@ -37,7 +36,7 @@ export const passwordEmail = async (context, payload) => new Auth().passwordEmai
 export const resetPassword = async (context, payload) => new Auth().resetPassword(payload);
 
 export const getUserCurrent = async ({ commit }) => {
-    const json = await new Users().getCurrent();
+    const json = await new User().getCurrent();
 
     commit(types.ID, json.data.id);
     commit(types.NAME, json.data.name);

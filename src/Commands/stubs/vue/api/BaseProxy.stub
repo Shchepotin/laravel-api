@@ -6,37 +6,26 @@ class BaseProxy {
         this.parameters = parameters;
     }
 
-    async submit(requestType, url, data = null) {
+    async submit(requestType, url, params = null) {
         let request = null;
+
         try {
-            if (requestType === 'get') {
-                request = window.axios.get(`${this.endpoint}${url}`, { params: data });
-            } else if (requestType === 'delete') {
-                request = window.axios.delete(`${this.endpoint}${url}`);
-            } else if (requestType === 'put') {
-                request = window.axios.put(`${this.endpoint}${url}`, data);
-            } else if (requestType === 'post') {
-                request = window.axios.post(`${this.endpoint}${url}`, data);
+            if (['get', 'delete'].includes(requestType)) {
+                request = window.axios[requestType](`${this.endpoint}${url}`, { params });
+            } else {
+                request = window.axios[requestType](`${this.endpoint}${url}`, params);
             }
 
             const response = await request;
 
-            if (response.status === 200) {
+            if (response.status >= 200 && response.status < 300) {
                 return response.data;
             }
         } catch (e) {
-            if (
-                e.response.status === 500
-                || e.response.status === 401
-                || e.response.status === 403
-                || e.response.status === 404
-                || e.response.status === 422
-            ) {
-                throw new ApiError({
-                    status: e.response.status,
-                    error: e.response.data,
-                });
-            }
+            throw new ApiError({
+                status: e.response.status,
+                error: e.response.data,
+            });
         }
 
         return false;
@@ -46,20 +35,20 @@ class BaseProxy {
         return this.submit('get', `/${id}`);
     }
 
-    findAll() {
-        return this.submit('get', '/all');
+    findAll(params = null) {
+        return this.submit('get', '/', params);
     }
 
-    destroy(id) {
-        return this.submit('delete', `/${id}`);
+    destroy(id, params = null) {
+        return this.submit('delete', `/${id}`, params);
     }
 
-    update(id, data) {
-        return this.submit('post', `/${id}`, data);
+    update(id, params) {
+        return this.submit('put', `/${id}`, params);
     }
 
-    store(data) {
-        return this.submit('post', '', data);
+    store(params) {
+        return this.submit('post', '/', params);
     }
 }
 

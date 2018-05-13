@@ -1,27 +1,13 @@
-export default {
-    async login(params) {
-        const { data } = await window.axios.post('/api/v1/login', params);
+import BaseProxy from './BaseProxy';
 
-        return data;
-    },
-    async register(params) {
-        const { data } = await window.axios.post('/api/v1/register', params);
+class User extends BaseProxy {
+    constructor(parameters = {}) {
+        super('/api/v1/user', parameters);
+    }
 
-        return data;
-    },
-    async passwordEmail(params) {
-        const { data } = await window.axios.post('/api/v1/password/email', params);
+    async getCurrent() {
+        return this.submit('get', '/current');
+    }
+}
 
-        return data;
-    },
-    async resetPassword(params) {
-        const { data } = await window.axios.post('/api/v1/reset/password', params);
-
-        return data;
-    },
-    async getUserCurrent() {
-        const { data } = await window.axios.get('/api/v1/user/current');
-
-        return data;
-    },
-};
+export default User;

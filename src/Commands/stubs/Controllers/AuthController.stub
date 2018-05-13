@@ -4,19 +4,19 @@ namespace {{namespace}}Http\Controllers\Api\V1;
 
 use Auth;
 use {{namespace}}User;
-use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\AuthenticationException;
 use {{namespace}}Http\Controllers\Controller;
 
-class UserController extends Controller
+class AuthController extends Controller
 {
     /**
      * User login.
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws AuthenticationException
      */
     public function login(Request $request)
     {
@@ -31,7 +31,6 @@ class UserController extends Controller
          */
         if (Auth::once(["email" => $request->input("email"), "password" => $request->input("password")])) {
             return response()->json([
-                "status" => 1,
                 "token" => Auth::user()->api_token,
             ]);
         } else {
@@ -63,7 +62,6 @@ class UserController extends Controller
         ]);
 
         $data = [
-            "status" => 1,
             "token" => $api_token,
         ];
 
@@ -78,38 +76,29 @@ class UserController extends Controller
      */
     public function sendResetLinkEmail(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             "email" => "required|email",
         ]);
 
-        if ($validator->fails()) {
+        $response = $this->broker()->sendResetLink(
+            $request->only('email')
+        );
+
+        if ($response == Password::RESET_LINK_SENT) {
+            $status = 200;
+
             $data = [
-                "status" => 0,
-                "errors" => $validator->errors(),
+                "message" => $response,
             ];
         } else {
-            $response = $this->broker()->sendResetLink(
-                $request->only('email')
-            );
+            $status = 400;
 
-            if ($response == Password::RESET_LINK_SENT) {
-                $data = [
-                    "status" => 1,
-                    "data" => [
-                        "message" => $response,
-                    ],
-                ];
-            } else {
-                $data = [
-                    "status" => 0,
-                    "errors" => [
-                        "message" => $response,
-                    ],
-                ];
-            }
+            $data = [
+                "message" => $response,
+            ];
         }
 
-        return response()->json($data);
+        return response()->json($data, $status);
     }
 
     /**
@@ -120,43 +109,34 @@ class UserController extends Controller
      */
     public function resetEmail(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'token' => 'required',
             'email' => 'required|email',
             'password' => 'required|confirmed|min:6',
         ]);
 
-        if ($validator->fails()) {
+        $response = $this->broker()->reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $this->resetPassword($user, $password);
+            }
+        );
+
+        if ($response == Password::PASSWORD_RESET) {
+            $status = 200;
+
             $data = [
-                "status" => 0,
-                "errors" => $validator->errors(),
+                "message" => $response,
             ];
         } else {
-            $response = $this->broker()->reset(
-                $request->only('email', 'password', 'password_confirmation', 'token'),
-                function ($user, $password) {
-                    $this->resetPassword($user, $password);
-                }
-            );
+            $status = 400;
 
-            if ($response == Password::PASSWORD_RESET) {
-                $data = [
-                    "status" => 1,
-                    "data" => [
-                        "message" => $response,
-                    ],
-                ];
-            } else {
-                $data = [
-                    "status" => 0,
-                    "errors" => [
-                        "message" => $response,
-                    ],
-                ];
-            }
+            $data = [
+                "message" => $response,
+            ];
         }
 
-        return response()->json($data);
+        return response()->json($data, $status);
     }
 
     /**
@@ -167,7 +147,6 @@ class UserController extends Controller
     public function getUserCurrent()
     {
         return response()->json([
-            "status" => 1,
             "data" => Auth::user(),
         ]);
     }
