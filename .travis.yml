@@ -36,8 +36,8 @@ before_install:
   - php artisan key:generate
 
 script:
-  - if [ -n "$TRAVIS_TAG" ]; composer require schepotin/laravel-api; fi
-  - if [ -n "$TRAVIS_BRANCH" ]; composer require schepotin/laravel-api:dev-$TRAVIS_BRANCH; fi
+  - if [ -n "$TRAVIS_TAG" ]; then composer require schepotin/laravel-api; fi
+  - if [ -n "$TRAVIS_BRANCH" ]; then composer require schepotin/laravel-api:dev-$TRAVIS_BRANCH; fi
   - php artisan laravel-api:publish --api --vue --no-interaction
   - php artisan migrate
   - npm install
