@@ -1,0 +1,177 @@
+<?php
+
+namespace {{namespace}}Http\Controllers\Api\V1;
+
+use Auth;
+use {{namespace}}User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\AuthenticationException;
+use {{namespace}}Http\Controllers\Controller;
+
+class AuthController extends Controller
+{
+    /**
+     * User login.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws AuthenticationException
+     */
+    public function login(Request $request)
+    {
+        $request->validate([
+            "email" => "required|string|email|max:255",
+            "password" => "required|string|min:6"
+        ]);
+
+        /*
+         * Auth::once method to log a user into the application for a single request.
+         * No sessions or cookies will be utilized.
+         */
+        if (Auth::once(["email" => $request->input("email"), "password" => $request->input("password")])) {
+            return response()->json([
+                "token" => Auth::user()->api_token,
+            ]);
+        } else {
+            throw new AuthenticationException;
+        }
+    }
+
+    /**
+     * Register new user.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function register(Request $request)
+    {
+        $request->validate([
+            "name" => "required|string|max:255",
+            "email" => "required|string|email|max:255|unique:users",
+            "password" => "required|string|min:6|confirmed"
+        ]);
+
+        $api_token = str_random(60);
+
+        User::create([
+            'name' => $request->input("name"),
+            'email' => $request->input("email"),
+            'password' => bcrypt($request->input("password")),
+            'api_token' => $api_token,
+        ]);
+
+        $data = [
+            "token" => $api_token,
+        ];
+
+        return response()->json($data);
+    }
+
+    /**
+     * Send email for reset password.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sendResetLinkEmail(Request $request)
+    {
+        $request->validate([
+            "email" => "required|email",
+        ]);
+
+        $response = $this->broker()->sendResetLink(
+            $request->only('email')
+        );
+
+        if ($response == Password::RESET_LINK_SENT) {
+            $status = 200;
+
+            $data = [
+                "message" => $response,
+            ];
+        } else {
+            $status = 400;
+
+            $data = [
+                "message" => $response,
+            ];
+        }
+
+        return response()->json($data, $status);
+    }
+
+    /**
+     * Reset password.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function resetEmail(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $response = $this->broker()->reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $this->resetPassword($user, $password);
+            }
+        );
+
+        if ($response == Password::PASSWORD_RESET) {
+            $status = 200;
+
+            $data = [
+                "message" => $response,
+            ];
+        } else {
+            $status = 400;
+
+            $data = [
+                "message" => $response,
+            ];
+        }
+
+        return response()->json($data, $status);
+    }
+
+    /**
+     * Get info about current logged user.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getUserCurrent()
+    {
+        return response()->json([
+            "data" => Auth::user(),
+        ]);
+    }
+
+    /**
+     * Get the broker to be used during password reset.
+     *
+     * @return \Illuminate\Contracts\Auth\PasswordBroker
+     */
+    public function broker()
+    {
+        return Password::broker();
+    }
+
+    /**
+     * Reset the given user's password.
+     *
+     * @param \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param $password
+     */
+    protected function resetPassword($user, $password)
+    {
+        $user->forceFill([
+            'password' => bcrypt($password),
+            'remember_token' => str_random(60),
+        ])->save();
+    }
+}
