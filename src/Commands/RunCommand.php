@@ -46,7 +46,7 @@ class RunCommand extends Command
     public function handle()
     {
         $user_model = new \ReflectionClass(config('auth.providers.users.model'));
-        
+
         if ($this->option('api')) {
             $this->createDirectories();
 
@@ -225,9 +225,8 @@ class RunCommand extends Command
                 $json->dependencies->{"js-cookie"} = "^2.2.0";
                 $json->dependencies->{"schepotin-vuex-helpers"} = "^0.0.7";
 
-                $json->devDependencies->{"babel-preset-es2015"} = "^6.24.1";
-                $json->devDependencies->{"babel-preset-es2016"} = "^6.24.1";
-                $json->devDependencies->{"babel-preset-es2017"} = "^6.24.1";
+                $json->devDependencies->{"babel-preset-env"} = "^1.7.0";
+                $json->devDependencies->{"babel-preset-stage-2"} = "^6.24.1";
                 $json->devDependencies->{"babel-plugin-syntax-dynamic-import"} =  "^6.18.0";
                 $json->devDependencies->{"babel-plugin-transform-runtime"} = "^6.23.0";
 
