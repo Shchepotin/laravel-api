@@ -17,6 +17,7 @@ export default {
             'password',
             'passwordConfirmation',
             'currentLang',
+            'currentDirection',
         ]),
     },
 };
