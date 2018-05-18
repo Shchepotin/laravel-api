@@ -15,6 +15,7 @@ export default {
             types.LOGIN,
             types.LOGOUT,
             types.CURRENT_LANG,
+            types.CURRENT_DIRECTION,
         ],
     }),
     [types.LOGIN](state, payload) {
@@ -35,5 +36,10 @@ export default {
         window.Cookies.set('locale', payload);
 
         state.currentLang = payload;
+    },
+    [types.CURRENT_DIRECTION](state, payload) {
+        window.Cookies.set('direction', payload);
+
+        state.currentDirection = payload;
     },
 };

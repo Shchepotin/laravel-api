@@ -238,6 +238,7 @@ class RunCommand extends Command
                 $json->devDependencies->{"eslint-loader"} = "^1.7.1";
                 $json->devDependencies->{"eslint-plugin-html"} = "^3.0.0";
                 $json->devDependencies->{"eslint-plugin-import"} =  "^2.2.0";
+                $json->devDependencies->{"postcss-rtl"} =  "^1.2.3";
 
                 unset($json->devDependencies->{"vue"});
                 unset($json->devDependencies->{"axios"});

@@ -7,6 +7,7 @@ export default {
     logged: false,
     token: null,
     currentLang: window.Cookies.get('locale') || 'en',
+    currentDirection: window.Cookies.get('direction') || 'ltr',
     createdAt: null,
     updatedAt: null,
 };

@@ -41,12 +41,12 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="language-dropdown">
                                 <a
                                     v-for="language in languages"
-                                    :key="language"
+                                    :key="language.language"
                                     class="dropdown-item"
                                     href="#"
-                                    @click.prevent="lang(language)"
+                                    @click.prevent="lang(language.language, language.direction)"
                                 >
-                                    {{ $t(`translation.${language}`) }}
+                                    {{ $t(`translation.${language.language}`) }}
                                 </a>
                             </div>
                         </li>
@@ -109,14 +109,30 @@
         ],
         computed: {
             languages() {
-                return Object.keys(this.$i18n.messages);
+                return [{
+                    language: 'en',
+                    direction: 'ltr',
+                }, {
+                    language: 'he',
+                    direction: 'rtl',
+                }];
             },
         },
         methods: {
-            lang(data) {
-                this.$i18n.locale = data;
-                this.userCurrentLang = data;
-                this.$validator.locale = data;
+            lang(language, direction) {
+                /**
+                 * Set language.
+                 */
+                this.$i18n.locale = language;
+                this.userCurrentLang = language;
+                this.$validator.locale = language;
+                document.querySelector('html').setAttribute('lang', language);
+
+                /**
+                 * Set direction.
+                 */
+                this.userCurrentDirection = direction;
+                document.querySelector('html').setAttribute('dir', direction);
             },
             async logout() {
                 await this.$store.dispatch('user/logout');
