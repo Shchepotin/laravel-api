@@ -17,7 +17,7 @@
                                         </label>
                                         <input
                                             id="email"
-                                            v-model="userEmail"
+                                            v-model="authEmail"
                                             type="email"
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('email') }"
@@ -35,7 +35,7 @@
                                         </label>
                                         <input
                                             id="password"
-                                            v-model="userPassword"
+                                            v-model="authPassword"
                                             type="password"
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('password') }"
@@ -68,11 +68,11 @@
 </template>
 
 <script>
-    import userMixin from '../../mixins/user';
+    import authMixin from '../../mixins/auth';
 
     export default {
         mixins: [
-            userMixin,
+            authMixin,
         ],
         metaInfo() {
             return {
@@ -91,7 +91,7 @@
             });
         },
         beforeDestroy() {
-            this.userPassword = null;
+            this.authPassword = null;
         },
         methods: {
             async auth() {
@@ -101,9 +101,9 @@
                     this.progress = true;
 
                     try {
-                        await this.$store.dispatch('user/login', {
-                            email: this.userEmail,
-                            password: this.userPassword,
+                        await this.$store.dispatch('auth/login', {
+                            email: this.authEmail,
+                            password: this.authPassword,
                         });
 
                         this.$router.push(this.$route.query.redirect || { name: 'home' });

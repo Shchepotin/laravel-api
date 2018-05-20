@@ -24,7 +24,7 @@ import './plugins/meta';
 
 import App from './pages/App.vue';
 
-store.dispatch('user/checkLogged');
+store.dispatch('auth/checkLogged');
 
 Vue.config.productionTip = false;
 

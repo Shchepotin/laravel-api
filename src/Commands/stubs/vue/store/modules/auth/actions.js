@@ -1,4 +1,3 @@
-import User from '../../../api/User';
 import Auth from '../../../api/Auth';
 import * as types from './mutation-types';
 
@@ -36,7 +35,7 @@ export const passwordEmail = async (context, payload) => new Auth().passwordEmai
 export const resetPassword = async (context, payload) => new Auth().resetPassword(payload);
 
 export const getUserCurrent = async ({ commit }) => {
-    const json = await new User().getCurrent();
+    const json = await new Auth().getCurrent();
 
     commit(types.ID, json.data.id);
     commit(types.NAME, json.data.name);

@@ -36,7 +36,7 @@
                                 aria-haspopup="true"
                                 aria-expanded="false"
                             >
-                                {{ $t(`translation.${userCurrentLang}`) }}
+                                {{ $t(`translation.${authCurrentLang}`) }}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="language-dropdown">
                                 <a
@@ -50,7 +50,7 @@
                                 </a>
                             </div>
                         </li>
-                        <li class="nav-item dropdown" v-if="userLogged">
+                        <li class="nav-item dropdown" v-if="authLogged">
                             <a
                                 class="nav-link dropdown-toggle"
                                 href="#" id="user-dropdown"
@@ -59,7 +59,7 @@
                                 aria-haspopup="true"
                                 aria-expanded="false"
                             >
-                                {{ userName }}
+                                {{ authName }}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-dropdown">
                                 <router-link
@@ -101,11 +101,11 @@
 </template>
 
 <script>
-    import userMixin from '../mixins/user';
+    import authMixin from '../mixins/auth';
 
     export default {
         mixins: [
-            userMixin,
+            authMixin,
         ],
         computed: {
             languages() {
@@ -124,18 +124,18 @@
                  * Set language.
                  */
                 this.$i18n.locale = language;
-                this.userCurrentLang = language;
+                this.authCurrentLang = language;
                 this.$validator.locale = language;
                 document.querySelector('html').setAttribute('lang', language);
 
                 /**
                  * Set direction.
                  */
-                this.userCurrentDirection = direction;
+                this.authCurrentDirection = direction;
                 document.querySelector('html').setAttribute('dir', direction);
             },
             async logout() {
-                await this.$store.dispatch('user/logout');
+                await this.$store.dispatch('auth/logout');
 
                 this.$router.push({
                     name: 'auth.login',

@@ -21,7 +21,7 @@
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('email') }"
                                             name="email"
-                                            v-model="userEmail"
+                                            v-model="authEmail"
                                             v-validate="'required|email|max:255'"
                                         >
                                         <div v-show="errors.has('email')" class="invalid-feedback">
@@ -38,7 +38,7 @@
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('password') }"
                                             name="password"
-                                            v-model="userPassword"
+                                            v-model="authPassword"
                                             v-validate="'required|min:6'"
                                         >
                                         <div v-show="errors.has('password')" class="invalid-feedback">
@@ -55,7 +55,7 @@
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('passwordConfirmation') }"
                                             name="passwordConfirmation"
-                                            v-model="userPasswordConfirmation"
+                                            v-model="authPasswordConfirmation"
                                             v-validate="'required|confirmed:password'"
                                         >
                                         <div v-show="errors.has('passwordConfirmation')" class="invalid-feedback">
@@ -76,11 +76,11 @@
 </template>
 
 <script>
-    import userMixin from '../../mixins/user';
+    import authMixin from '../../mixins/auth';
 
     export default {
         mixins: [
-            userMixin,
+            authMixin,
         ],
         metaInfo() {
             return {
@@ -93,8 +93,8 @@
             };
         },
         beforeDestroy() {
-            this.userPassword = null;
-            this.userPasswordConfirmation = null;
+            this.authPassword = null;
+            this.authPasswordConfirmation = null;
         },
         methods: {
             async resetPassword() {
@@ -104,10 +104,10 @@
                     this.progress = true;
 
                     try {
-                        await this.$store.dispatch('user/resetPassword', {
-                            email: this.userEmail,
-                            password: this.userPassword,
-                            password_confirmation: this.userPasswordConfirmation,
+                        await this.$store.dispatch('auth/resetPassword', {
+                            email: this.authEmail,
+                            password: this.authPassword,
+                            password_confirmation: this.authPasswordConfirmation,
                             token: this.$route.params.token,
                         });
 

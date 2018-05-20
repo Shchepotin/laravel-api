@@ -75,7 +75,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.auth) && !store.getters['user/logged']) {
+    if (to.matched.some(record => record.meta.auth) && !store.getters['auth/logged']) {
         /**
          * If the user is not authenticated and visits
          * a page that requires authentication, redirect to the login page
@@ -86,7 +86,7 @@ router.beforeEach((to, from, next) => {
                 redirect: to.fullPath,
             },
         });
-    } else if (to.matched.some(record => record.meta.guest) && store.getters['user/logged']) {
+    } else if (to.matched.some(record => record.meta.guest) && store.getters['auth/logged']) {
         /**
          * If the user is authenticated and visits
          * an guest page, redirect to the homepage

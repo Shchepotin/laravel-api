@@ -17,7 +17,7 @@
                                         </label>
                                         <input
                                             id="email"
-                                            v-model="userEmail"
+                                            v-model="authEmail"
                                             type="email"
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('email') }"
@@ -47,11 +47,11 @@
 </template>
 
 <script>
-    import userMixin from '../../mixins/user';
+    import authMixin from '../../mixins/auth';
 
     export default {
         mixins: [
-            userMixin,
+            authMixin,
         ],
         metaInfo() {
             return {
@@ -71,8 +71,8 @@
                     this.progress = true;
 
                     try {
-                        await this.$store.dispatch('user/passwordEmail', {
-                            email: this.userEmail,
+                        await this.$store.dispatch('auth/passwordEmail', {
+                            email: this.authEmail,
                         });
 
                         this.$toast.success({

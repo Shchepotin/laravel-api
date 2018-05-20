@@ -25,7 +25,7 @@ Validator.extend('unique', {
 
 Vue.use(VeeValidate, {
     fieldsBagName: 'fieldsValidation',
-    locale: store.getters['user/currentLang'],
+    locale: store.getters['auth/currentLang'],
     dictionary: {
         en: validationEn,
         he: validationHe,
