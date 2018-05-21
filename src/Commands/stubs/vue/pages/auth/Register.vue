@@ -17,7 +17,7 @@
                                         </label>
                                         <input
                                             id="name"
-                                            v-model="userName"
+                                            v-model="authName"
                                             type="text"
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('name') }"
@@ -35,7 +35,7 @@
                                         </label>
                                         <input
                                             id="email"
-                                            v-model="userEmail"
+                                            v-model="authEmail"
                                             type="email"
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('email') }"
@@ -53,7 +53,7 @@
                                         </label>
                                         <input
                                             id="password"
-                                            v-model="userPassword"
+                                            v-model="authPassword"
                                             type="password"
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('password') }"
@@ -70,7 +70,7 @@
                                         </label>
                                         <input
                                             id="password-confirmation"
-                                            v-model="userPasswordConfirmation"
+                                            v-model="authPasswordConfirmation"
                                             type="password"
                                             class="form-control"
                                             :class="{ 'is-invalid': errors.has('passwordConfirmation') }"
@@ -99,11 +99,11 @@
 </template>
 
 <script>
-    import userMixin from '../../mixins/user';
+    import authMixin from '../../mixins/auth';
 
     export default {
         mixins: [
-            userMixin,
+            authMixin,
         ],
         metaInfo() {
             return {
@@ -122,8 +122,8 @@
             });
         },
         beforeDestroy() {
-            this.userPassword = null;
-            this.userPasswordConfirmation = null;
+            this.authPassword = null;
+            this.authPasswordConfirmation = null;
         },
         methods: {
             async register() {
@@ -133,11 +133,11 @@
                     this.progress = true;
 
                     try {
-                        await this.$store.dispatch('user/register', {
-                            name: this.userName,
-                            email: this.userEmail,
-                            password: this.userPassword,
-                            password_confirmation: this.userPasswordConfirmation,
+                        await this.$store.dispatch('auth/register', {
+                            name: this.authName,
+                            email: this.authEmail,
+                            password: this.authPassword,
+                            password_confirmation: this.authPasswordConfirmation,
                         });
 
                         this.$router.push({

@@ -20,6 +20,10 @@ class Auth extends BaseProxy {
     async resetPassword(params = {}) {
         return this.submit('post', '/reset/password', params);
     }
+
+    async getCurrent() {
+        return this.submit('get', '/user/current');
+    }
 }
 
 export default Auth;

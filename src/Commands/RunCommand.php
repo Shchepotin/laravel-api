@@ -356,8 +356,8 @@ class RunCommand extends Command
             mkdir(base_path("resources/assets/js/store/modules"), 0755, true);
         }
 
-        if (!is_dir(base_path("resources/assets/js/store/modules/user"))) {
-            mkdir(base_path("resources/assets/js/store/modules/user"), 0755, true);
+        if (!is_dir(base_path("resources/assets/js/store/modules/auth"))) {
+            mkdir(base_path("resources/assets/js/store/modules/auth"), 0755, true);
         }
 
         if (!is_dir(base_path("resources/assets/js/mixins"))) {
@@ -383,13 +383,6 @@ class RunCommand extends Command
             file_put_contents(
                 base_path('resources/assets/js/api/Auth.js'),
                 file_get_contents(__DIR__ . "/stubs/vue/api/Auth.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/assets/js/api/User.js'))) {
-            file_put_contents(
-                base_path('resources/assets/js/api/User.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/api/User.js")
             );
         }
 
@@ -512,52 +505,52 @@ class RunCommand extends Command
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/store/modules/user/index.js'))) {
+        if (!file_exists(base_path('resources/assets/js/store/modules/auth/index.js'))) {
             file_put_contents(
-                base_path('resources/assets/js/store/modules/user/index.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/modules/user/index.js")
+                base_path('resources/assets/js/store/modules/auth/index.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/store/modules/auth/index.js")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/store/modules/user/actions.js'))) {
+        if (!file_exists(base_path('resources/assets/js/store/modules/auth/actions.js'))) {
             file_put_contents(
-                base_path('resources/assets/js/store/modules/user/actions.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/modules/user/actions.js")
+                base_path('resources/assets/js/store/modules/auth/actions.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/store/modules/auth/actions.js")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/store/modules/user/getters.js'))) {
+        if (!file_exists(base_path('resources/assets/js/store/modules/auth/getters.js'))) {
             file_put_contents(
-                base_path('resources/assets/js/store/modules/user/getters.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/modules/user/getters.js")
+                base_path('resources/assets/js/store/modules/auth/getters.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/store/modules/auth/getters.js")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/store/modules/user/mutations.js'))) {
+        if (!file_exists(base_path('resources/assets/js/store/modules/auth/mutations.js'))) {
             file_put_contents(
-                base_path('resources/assets/js/store/modules/user/mutations.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/modules/user/mutations.js")
+                base_path('resources/assets/js/store/modules/auth/mutations.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/store/modules/auth/mutations.js")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/store/modules/user/state.js'))) {
+        if (!file_exists(base_path('resources/assets/js/store/modules/auth/state.js'))) {
             file_put_contents(
-                base_path('resources/assets/js/store/modules/user/state.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/modules/user/state.js")
+                base_path('resources/assets/js/store/modules/auth/state.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/store/modules/auth/state.js")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/modules/user/store/mutation-types.js'))) {
+        if (!file_exists(base_path('resources/assets/js/modules/auth/store/mutation-types.js'))) {
             file_put_contents(
-                base_path('resources/assets/js/store/modules/user/mutation-types.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/modules/user/mutation-types.js")
+                base_path('resources/assets/js/store/modules/auth/mutation-types.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/store/modules/auth/mutation-types.js")
             );
         }
 
-        if (!file_exists(base_path('resources/assets/js/mixins/user.js'))) {
+        if (!file_exists(base_path('resources/assets/js/mixins/auth.js'))) {
             file_put_contents(
-                base_path('resources/assets/js/mixins/user.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/mixins/user.js")
+                base_path('resources/assets/js/mixins/auth.js'),
+                file_get_contents(__DIR__ . "/stubs/vue/mixins/auth.js")
             );
         }
 

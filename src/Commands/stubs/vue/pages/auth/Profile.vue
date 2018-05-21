@@ -5,10 +5,10 @@
                 <div class="card">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            {{ $t('translation.name')}}: <strong>{{ userName }}</strong>
+                            {{ $t('translation.name')}}: <strong>{{ authName }}</strong>
                         </li>
                         <li class="list-group-item">
-                            {{ $t('translation.email')}}: <strong>{{ userEmail }}</strong>
+                            {{ $t('translation.email')}}: <strong>{{ authEmail }}</strong>
                         </li>
                     </ul>
                 </div>
@@ -18,15 +18,15 @@
 </template>
 
 <script>
-    import userMixin from '../../mixins/user';
+    import authMixin from '../../mixins/auth';
 
     export default {
         mixins: [
-            userMixin,
+            authMixin,
         ],
         metaInfo() {
             return {
-                title: this.userName,
+                title: this.authName,
             };
         },
     };

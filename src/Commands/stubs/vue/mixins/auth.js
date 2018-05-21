@@ -8,7 +8,7 @@ export default {
          * Documentation {@link https://www.npmjs.com/package/schepotin-vuex-helpers#maptwowaystate | mapTwoWayState}
          */
         ...mapTwoWayState({
-            namespace: 'user',
+            namespace: 'auth',
             prefix: true,
         }, [
             'logged',
