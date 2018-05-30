@@ -19,5 +19,38 @@ export default {
             'currentLang',
             'currentDirection',
         ]),
+        languages() {
+            return [{
+                language: 'en',
+                direction: 'ltr',
+            }, {
+                language: 'he',
+                direction: 'rtl',
+            }];
+        },
+    },
+    methods: {
+        lang(language, direction) {
+            /**
+             * Set language.
+             */
+            this.$i18n.locale = language;
+            this.authCurrentLang = language;
+            this.$validator.locale = language;
+            document.querySelector('html').setAttribute('lang', language);
+
+            /**
+             * Set direction.
+             */
+            this.authCurrentDirection = direction;
+            document.querySelector('html').setAttribute('dir', direction);
+        },
+        async logout() {
+            await this.$store.dispatch('auth/logout');
+
+            this.$router.push({
+                name: 'auth.login',
+            });
+        },
     },
 };
