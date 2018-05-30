@@ -393,6 +393,13 @@ class RunCommand extends Command
             );
         }
 
+        if (!file_exists(base_path('resources/assets/js/components/Header.vue'))) {
+            file_put_contents(
+                base_path('resources/assets/js/components/Header.vue'),
+                file_get_contents(__DIR__ . "/stubs/vue/components/Header.vue")
+            );
+        }
+
         if (!file_exists(base_path('resources/assets/js/utils/.gitkeep'))) {
             file_put_contents(
                 base_path('resources/assets/js/utils/.gitkeep'),
