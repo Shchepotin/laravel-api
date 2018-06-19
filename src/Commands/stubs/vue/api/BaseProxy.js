@@ -31,11 +31,11 @@ class BaseProxy {
         return false;
     }
 
-    find(id) {
+    show(id) {
         return this.submit('get', `/${id}`);
     }
 
-    findAll(params = null) {
+    index(params = null) {
         return this.submit('get', '/', params);
     }
 
