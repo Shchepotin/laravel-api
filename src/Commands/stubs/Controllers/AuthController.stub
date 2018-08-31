@@ -5,6 +5,7 @@ namespace {{namespace}}Http\Controllers\Api\V1;
 use Auth;
 use {{namespace}}User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\AuthenticationException;
 use {{namespace}}Http\Controllers\Controller;
@@ -84,21 +85,13 @@ class AuthController extends Controller
             $request->only('email')
         );
 
-        if ($response == Password::RESET_LINK_SENT) {
-            $status = 200;
+        $status = ($response === Password::RESET_LINK_SENT) ?
+            Response::HTTP_OK :
+            Response::HTTP_BAD_REQUEST;
 
-            $data = [
-                "message" => $response,
-            ];
-        } else {
-            $status = 400;
-
-            $data = [
-                "message" => $response,
-            ];
-        }
-
-        return response()->json($data, $status);
+        return response()->json([
+            "message" => $response,
+        ], $status);
     }
 
     /**
@@ -122,21 +115,13 @@ class AuthController extends Controller
             }
         );
 
-        if ($response == Password::PASSWORD_RESET) {
-            $status = 200;
+        $status = ($response === Password::PASSWORD_RESET) ?
+            Response::HTTP_OK :
+            Response::HTTP_BAD_REQUEST;
 
-            $data = [
-                "message" => $response,
-            ];
-        } else {
-            $status = 400;
-
-            $data = [
-                "message" => $response,
-            ];
-        }
-
-        return response()->json($data, $status);
+        return response()->json([
+            "message" => $response,
+        ], $status);
     }
 
     /**
