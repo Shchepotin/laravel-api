@@ -255,68 +255,29 @@ class RunCommand extends Command
      */
     protected function createVueDirectories()
     {
-        if (!is_dir(base_path("resources/views/layouts"))) {
-            mkdir(base_path("resources/views/layouts"), 0755, true);
-        }
+        $directories = [
+            "resources/views/layouts",
+            "resources/js/api",
+            "resources/js/exceptions",
+            "resources/js/plugins",
+            "resources/js/components",
+            "resources/js/utils",
+            "resources/js/pages",
+            "resources/js/pages/auth",
+            "resources/js/lang",
+            "resources/js/lang/en",
+            "resources/js/lang/he",
+            "resources/js/router",
+            "resources/js/store",
+            "resources/js/store/modules",
+            "resources/js/store/modules/auth",
+            "resources/js/mixins",
+        ];
 
-        if (!is_dir(base_path("resources/js/api"))) {
-            mkdir(base_path("resources/js/api"), 0755, true);
-        }
-
-        if (!is_dir(base_path("resources/js/exceptions"))) {
-            mkdir(base_path("resources/js/exceptions"), 0755, true);
-        }
-
-        if (!is_dir(base_path("resources/js/plugins"))) {
-            mkdir(base_path("resources/js/plugins"), 0755, true);
-        }
-
-        if (!is_dir(base_path("resources/js/components"))) {
-            mkdir(base_path("resources/js/components"), 0755, true);
-        }
-
-        if (!is_dir(base_path("resources/js/utils"))) {
-            mkdir(base_path("resources/js/utils"), 0755, true);
-        }
-
-        if (!is_dir(base_path("resources/js/pages"))) {
-            mkdir(base_path("resources/js/pages"), 0755, true);
-        }
-
-        if (!is_dir(base_path("resources/js/pages/auth"))) {
-            mkdir(base_path("resources/js/pages/auth"), 0755, true);
-        }
-
-        if (!is_dir(base_path("resources/js/lang"))) {
-            mkdir(base_path("resources/js/lang"), 0755, true);
-        }
-
-        if (!is_dir(base_path("resources/js/lang/en"))) {
-            mkdir(base_path("resources/js/lang/en"), 0755, true);
-        }
-
-        if (!is_dir(base_path("resources/js/lang/he"))) {
-            mkdir(base_path("resources/js/lang/he"), 0755, true);
-        }
-
-        if (!is_dir(base_path("resources/js/router"))) {
-            mkdir(base_path("resources/js/router"), 0755, true);
-        }
-
-        if (!is_dir(base_path("resources/js/store"))) {
-            mkdir(base_path("resources/js/store"), 0755, true);
-        }
-
-        if (!is_dir(base_path("resources/js/store/modules"))) {
-            mkdir(base_path("resources/js/store/modules"), 0755, true);
-        }
-
-        if (!is_dir(base_path("resources/js/store/modules/auth"))) {
-            mkdir(base_path("resources/js/store/modules/auth"), 0755, true);
-        }
-
-        if (!is_dir(base_path("resources/js/mixins"))) {
-            mkdir(base_path("resources/js/mixins"), 0755, true);
+        foreach ($directories as $directory) {
+            if (!is_dir(base_path($directory))) {
+                mkdir(base_path($directory), 0755, true);
+            }
         }
     }
 
@@ -327,221 +288,47 @@ class RunCommand extends Command
      */
     protected function createVueFiles()
     {
-        if (!file_exists(base_path('resources/js/api/BaseProxy.js'))) {
-            file_put_contents(
-                base_path('resources/js/api/BaseProxy.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/api/BaseProxy.js")
-            );
-        }
+        $files = [
+            '/api/BaseProxy.js',
+            '/api/Auth.js',
+            '/components/.gitkeep',
+            '/components/Header.vue',
+            '/utils/.gitkeep',
+            '/exceptions/ApiError.js',
+            '/pages/NotFound.vue',
+            '/pages/Home.vue',
+            '/pages/App.vue',
+            '/pages/auth/Login.vue',
+            '/pages/auth/Register.vue',
+            '/pages/auth/PasswordEmail.vue',
+            '/pages/auth/ResetPassword.vue',
+            '/pages/auth/Profile.vue',
+            '/lang/en/en.js',
+            '/lang/en/validator.js',
+            '/lang/he/he.js',
+            '/lang/he/validator.js',
+            '/router/index.js',
+            '/store/index.js',
+            '/store/modules/auth/index.js',
+            '/store/modules/auth/actions.js',
+            '/store/modules/auth/getters.js',
+            '/store/modules/auth/mutations.js',
+            '/store/modules/auth/state.js',
+            '/store/modules/auth/mutation-types.js',
+            '/mixins/auth.js',
+            '/plugins/lang.js',
+            '/plugins/meta.js',
+            '/plugins/toastr.js',
+            '/plugins/validator.js',
+        ];
 
-        if (!file_exists(base_path('resources/js/api/Auth.js'))) {
-            file_put_contents(
-                base_path('resources/js/api/Auth.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/api/Auth.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/components/.gitkeep'))) {
-            file_put_contents(
-                base_path('resources/js/components/.gitkeep'),
-                file_get_contents(__DIR__ . "/stubs/vue/components/.gitkeep")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/components/Header.vue'))) {
-            file_put_contents(
-                base_path('resources/js/components/Header.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/components/Header.vue")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/utils/.gitkeep'))) {
-            file_put_contents(
-                base_path('resources/js/utils/.gitkeep'),
-                file_get_contents(__DIR__ . "/stubs/vue/utils/.gitkeep")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/exceptions/ApiError.js'))) {
-            file_put_contents(
-                base_path('resources/js/exceptions/ApiError.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/exceptions/ApiError.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/pages/NotFound.vue'))) {
-            file_put_contents(
-                base_path('resources/js/pages/NotFound.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/pages/NotFound.vue")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/pages/Home.vue'))) {
-            file_put_contents(
-                base_path('resources/js/pages/Home.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/pages/Home.vue")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/pages/App.vue'))) {
-            file_put_contents(
-                base_path('resources/js/pages/App.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/pages/App.vue")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/pages/auth/Login.vue'))) {
-            file_put_contents(
-                base_path('resources/js/pages/auth/Login.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/pages/auth/Login.vue")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/pages/auth/Register.vue'))) {
-            file_put_contents(
-                base_path('resources/js/pages/auth/Register.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/pages/auth/Register.vue")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/pages/auth/PasswordEmail.vue'))) {
-            file_put_contents(
-                base_path('resources/js/pages/auth/PasswordEmail.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/pages/auth/PasswordEmail.vue")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/pages/auth/ResetPassword.vue'))) {
-            file_put_contents(
-                base_path('resources/js/pages/auth/ResetPassword.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/pages/auth/ResetPassword.vue")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/pages/auth/Profile.vue'))) {
-            file_put_contents(
-                base_path('resources/js/pages/auth/Profile.vue'),
-                file_get_contents(__DIR__ . "/stubs/vue/pages/auth/Profile.vue")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/lang/en/en.js'))) {
-            file_put_contents(
-                base_path('resources/js/lang/en/en.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/lang/en/en.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/lang/en/validator.js'))) {
-            file_put_contents(
-                base_path('resources/js/lang/en/validator.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/lang/en/validator.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/lang/he/he.js'))) {
-            file_put_contents(
-                base_path('resources/js/lang/he/he.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/lang/he/he.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/lang/he/validator.js'))) {
-            file_put_contents(
-                base_path('resources/js/lang/he/validator.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/lang/he/validator.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/router/index.js'))) {
-            file_put_contents(
-                base_path('resources/js/router/index.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/router/index.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/store/index.js'))) {
-            file_put_contents(
-                base_path('resources/js/store/index.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/index.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/store/modules/auth/index.js'))) {
-            file_put_contents(
-                base_path('resources/js/store/modules/auth/index.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/modules/auth/index.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/store/modules/auth/actions.js'))) {
-            file_put_contents(
-                base_path('resources/js/store/modules/auth/actions.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/modules/auth/actions.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/store/modules/auth/getters.js'))) {
-            file_put_contents(
-                base_path('resources/js/store/modules/auth/getters.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/modules/auth/getters.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/store/modules/auth/mutations.js'))) {
-            file_put_contents(
-                base_path('resources/js/store/modules/auth/mutations.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/modules/auth/mutations.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/store/modules/auth/state.js'))) {
-            file_put_contents(
-                base_path('resources/js/store/modules/auth/state.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/modules/auth/state.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/modules/auth/store/mutation-types.js'))) {
-            file_put_contents(
-                base_path('resources/js/store/modules/auth/mutation-types.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/store/modules/auth/mutation-types.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/mixins/auth.js'))) {
-            file_put_contents(
-                base_path('resources/js/mixins/auth.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/mixins/auth.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/plugins/lang.js'))) {
-            file_put_contents(
-                base_path('resources/js/plugins/lang.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/plugins/lang.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/plugins/meta.js'))) {
-            file_put_contents(
-                base_path('resources/js/plugins/meta.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/plugins/meta.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/plugins/toastr.js'))) {
-            file_put_contents(
-                base_path('resources/js/plugins/toastr.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/plugins/toastr.js")
-            );
-        }
-
-        if (!file_exists(base_path('resources/js/plugins/validator.js'))) {
-            file_put_contents(
-                base_path('resources/js/plugins/validator.js'),
-                file_get_contents(__DIR__ . "/stubs/vue/plugins/validator.js")
-            );
+        foreach ($files as $file) {
+            if (!file_exists(base_path('resources/js' . $file))) {
+                file_put_contents(
+                    base_path('resources/js' . $file),
+                    file_get_contents(__DIR__ . '/stubs/vue' . $file)
+                );
+            }
         }
     }
 
@@ -550,7 +337,7 @@ class RunCommand extends Command
         return str_replace(
             "{{namespace}}",
             $this->getAppNamespace(),
-            file_get_contents(__DIR__ . "/stubs/Controllers/AuthController.stub")
+            file_get_contents(__DIR__ . '/stubs/Controllers/AuthController.stub')
         );
     }
 
