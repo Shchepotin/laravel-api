@@ -87,51 +87,6 @@ class RunCommand extends Command
                 echo "Parse Error: ", $e->getMessage();
             }
 
-            /*
-             * Insert 'api_token' => str_random(60) into method create
-             */
-            $register_controller_code = file_get_contents(app_path("Http/Controllers/Auth/RegisterController.php"));
-            $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
-
-            try {
-                $prettyPrinter = new PrettyPrinter\Standard();
-                $stmts = $parser->parse($register_controller_code);
-
-                if (isset($stmts[0]->stmts[4]->stmts)) {
-                    foreach ($stmts[0]->stmts[4]->stmts as $stmt) {
-                        if (isset($stmt->name) && $stmt->name == "create") {
-                            if (isset($stmt->stmts[0]->expr->args[0]->value->items)) {
-                                $is_update = true;
-
-                                foreach ($stmt->stmts[0]->expr->args[0]->value->items as $item) {
-                                    if (isset($item->key->value) && $item->key->value == "api_token") {
-                                        $is_update = false;
-                                    }
-                                }
-
-                                if ($is_update == true) {
-                                    $stmt->stmts[0]
-                                        ->expr
-                                        ->args[0]
-                                        ->value
-                                        ->items[] = new \PhpParser\Node\Expr\ArrayItem(
-                                        new \PhpParser\Node\Expr\FuncCall(
-                                            new \PhpParser\Node\Name("str_random"),
-                                            [new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\LNumber(60))]
-                                        ),
-                                        new \PhpParser\Node\Scalar\String_("api_token")
-                                    );
-                                }
-                            }
-                        }
-                    }
-                }
-
-                file_put_contents(app_path("Http/Controllers/Auth/RegisterController.php"), $prettyPrinter->prettyPrintFile($stmts));
-            } catch (Error $e) {
-                echo "Parse Error: ", $e->getMessage();
-            }
-
             if (!file_exists(app_path("Http/Controllers/Api/V1/AuthController.php"))) {
                 file_put_contents(
                     app_path("Http/Controllers/Api/V1/AuthController.php"),
